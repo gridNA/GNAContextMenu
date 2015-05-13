@@ -12,6 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let v = ZContextMenuView(frame:CGRectMake(0, 0, 300, 300))
+        //v.backgroundColor = UIColor.redColor()
+        view.addSubview(v)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
