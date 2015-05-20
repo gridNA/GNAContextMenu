@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let v = ZContextMenuView(frame:CGRectMake(0, 0, 300, 300))
+        let menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
+        let v = ZContextMenuView(frame:CGRectMake(0, 0, 300, 300), menuView: menuView, info: nil)
         //v.backgroundColor = UIColor.redColor()
         view.addSubview(v)
         // Do any additional setup after loading the view, typically from a nib.

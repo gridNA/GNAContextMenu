@@ -12,26 +12,41 @@ import UIKit
 class ZContextMenuView: UIView {
     
     var shouldPresentContextMenu = false
-    var menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
+    var contextMenuIsPresented = false
+    var menuView: MenuView
+    private var additionalInfo: [String: AnyObject]?
+    
+    init(frame: CGRect, menuView menu: MenuView, info: [String: AnyObject]!) {
+        menuView = menu
+        additionalInfo = info
+        super.init(frame: frame)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func touchesBegan(touches:Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
         
         if let touch = touches.first as? UITouch {
+            shouldPresentContextMenu = true
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.presentContexMenu(touch)
+                if self.shouldPresentContextMenu {
+                    self.presentContexMenu(touch)
+                }
             }
         }
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
-        if(shouldPresentContextMenu == true) {
+        shouldPresentContextMenu = false
+        if(contextMenuIsPresented == true) {
             if let touch = touches.first as? UITouch {
                 dismissContextMenu(touch)
             }
-            shouldPresentContextMenu = false
         } else {
             // TODO: handle tap here
         }
@@ -46,12 +61,12 @@ class ZContextMenuView: UIView {
     }
     
     func presentContexMenu(touch: UITouch) {
-        self.shouldPresentContextMenu = true
+        self.contextMenuIsPresented = true
         menuView.showMenuView(inView: self, atPoint: touch.locationInView(self))
     }
     
     func dismissContextMenu(touch: UITouch) {
-        self.shouldPresentContextMenu = false
+        self.contextMenuIsPresented = false
         menuView.dismissMenuView(touch.locationInView(self))
     }
 }
