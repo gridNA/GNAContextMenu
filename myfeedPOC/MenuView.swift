@@ -242,14 +242,13 @@ class MenuView: UIView {
     }
     
     func setupPositionAnimated(menuItem: MenuItem) {
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.2, animations: {
              self.setupPosition(menuItem)
         })
     }
     
     func dismissMenuView(point: CGPoint) {
         detectPoint(point, action: { (menuItem: MenuItem) in
-            // TODO: handle selection
             println("selected")
             println(point)
         })
