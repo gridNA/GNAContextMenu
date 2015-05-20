@@ -9,11 +9,18 @@
 import Foundation
 import UIKit
 
+@objc protocol ZContextMenuViewDelegate {
+    optional func contextMenuPresented(menuView: MenuView, additionalInfo: [String: AnyObject]?)
+    optional func contextMenuDismissed(menuView: MenuView, additionalInfo: [String: AnyObject]?)
+    optional func itemIsTapped(additionalInfo: [String: AnyObject]?)
+}
+
 class ZContextMenuView: UIView {
     
     var shouldPresentContextMenu = false
     var contextMenuIsPresented = false
     var menuView: MenuView
+    var delegate: ZContextMenuViewDelegate?
     private var additionalInfo: [String: AnyObject]?
     
     init(frame: CGRect, menuView menu: MenuView, info: [String: AnyObject]!) {
@@ -48,7 +55,7 @@ class ZContextMenuView: UIView {
                 dismissContextMenu(touch)
             }
         } else {
-            // TODO: handle tap here
+            delegate?.itemIsTapped?(additionalInfo)
         }
     }
     
@@ -63,10 +70,12 @@ class ZContextMenuView: UIView {
     func presentContexMenu(touch: UITouch) {
         self.contextMenuIsPresented = true
         menuView.showMenuView(inView: self, atPoint: touch.locationInView(self))
+        delegate?.contextMenuPresented?(menuView, additionalInfo: additionalInfo)
     }
     
     func dismissContextMenu(touch: UITouch) {
         self.contextMenuIsPresented = false
         menuView.dismissMenuView(touch.locationInView(self))
+        delegate?.contextMenuDismissed?(menuView, additionalInfo: additionalInfo)
     }
 }

@@ -13,12 +13,21 @@ class MenuItem: UIView {
     var itemNumber: Int!
     var titleLabel: UILabel!
     var titleView: UIView!
+    var itemId: String?
     private var menuIcon: UIImageView!
     private var titleText: String?
     private var activeMenuIcon: UIImageView?
     
-    init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
+    convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
         var frame = CGRectMake(0, 0, 60, 60)
+        self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
+        menuIcon = createMenuIcon(icon)
+        activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)
+        createLabel(title)
+        makeInactive()
+    }
+    
+    init(icon: UIImage!, activeIcon: UIImage?, title: String?, frame: CGRect) {
         super.init(frame: frame)
         menuIcon = createMenuIcon(icon)
         activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)

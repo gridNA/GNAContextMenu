@@ -17,8 +17,16 @@ enum Direction {
     case Down
 }
 
+@objc protocol MenuItemDelegate {
+    optional func menuItemWasPressed(menuItem: MenuItem, info: [String: AnyObject]?)
+    optional func menuItemActivated(menuItem: MenuItem, info: [String: AnyObject]?)
+    optional func menuItemDeactivated(menuItem: MenuItem, info: [String: AnyObject]?)
+}
+
 class MenuView: UIView {
     var distanceToTouchPoint: CGFloat = 20
+    var delegate: MenuItemDelegate?
+    var additionalInfo: [String: AnyObject]?
     private var touchPoint: CGPoint!
     private var menuItemsArray: Array<MenuItem>!
     private var coordinatesDict: [String: CGFloat]!
@@ -230,6 +238,7 @@ class MenuView: UIView {
             calculateCoordinates()
             setupPositionAnimated(menuItem)
             menuItem.makeActive()
+            delegate?.menuItemActivated?(menuItem, info: additionalInfo)
         }
     }
     
@@ -239,6 +248,7 @@ class MenuView: UIView {
         calculateCoordinates()
         setupPositionAnimated(menuItem)
         menuItem.makeInactive()
+        delegate?.menuItemDeactivated?(menuItem, info: additionalInfo)
     }
     
     func setupPositionAnimated(menuItem: MenuItem) {
@@ -249,8 +259,7 @@ class MenuView: UIView {
     
     func dismissMenuView(point: CGPoint) {
         detectPoint(point, action: { (menuItem: MenuItem) in
-            println("selected")
-            println(point)
+            delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
         })
         self.removeFromSuperview()
     }
