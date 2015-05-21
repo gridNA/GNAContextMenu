@@ -3,7 +3,7 @@
 //  myfeedPOC
 //
 //  Created by Kateryna Gridina on 12/05/15.
-//  Copyright (c) 2015 zalando. All rights reserved.
+//  Copyright (c) gridNA. All rights reserved.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class MenuItem: UIView {
     private var activeMenuIcon: UIImageView?
     
     convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
-        var frame = CGRectMake(0, 0, 60, 60)
+        var frame = CGRectMake(0, 0, 55, 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
         menuIcon = createMenuIcon(icon)
         activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)
@@ -83,7 +83,9 @@ class MenuItem: UIView {
     private func showHideTitle(hiddenState: Bool) {
         if let titleView = titleView {
             titleView.hidden = hiddenState
-            titleView.center = CGPoint(x: self.frame.width/2, y: -titleLabel.frame.height)
+            UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
+                titleView.center = CGPoint(x: self.frame.width/2, y: -self.titleLabel.frame.height)
+            }, completion: nil)
         }
     }
     

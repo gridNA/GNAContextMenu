@@ -3,22 +3,26 @@
 //  myfeedPOC
 //
 //  Created by Kateryna Gridina on 12/05/15.
-//  Copyright (c) 2015 zalando. All rights reserved.
+//  Copyright (c) gridNA. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, ZContextMenuViewDelegate, MenuItemDelegate {
+class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    var table: UITableView!
+    var menuView: MenuView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
+        table = UITableView()
+        table.frame = view.bounds
+        view.addSubview(table)
+        table.delegate = self
+        table.dataSource = self
+        table.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "handleLongPress:"))
+        menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
         menuView.delegate = self
-        let v = ZContextMenuView(frame:CGRectMake(0, 0, 300, 300), menuView: menuView, info: nil)
-        v.delegate = self
-        //v.backgroundColor = UIColor.redColor()
-        view.addSubview(v)
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,13 +30,51 @@ class ViewController: UIViewController, ZContextMenuViewDelegate, MenuItemDelega
         // Dispose of any resources that can be recreated.
     }
     
-    func itemIsTapped(additionalInfo: [String: AnyObject]?) {
-        println("tapped")
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: "reuseIdentifier")
+        let b = UIButton(frame: CGRectMake(0, 0, 30, 30))
+        b.setTitle("✸", forState: .Normal)
+        b.backgroundColor = UIColor.grayColor()
+        b.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        cell.addSubview(b)
+        return cell
+    }
+    
+    func pressed(sender: UIButton!) {
+        println("button touch")
+    }
+    
+    func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        let point = gesture.locationInView(table)
+        let indexPath = table.indexPathForRowAtPoint(point)
+        if let p = indexPath {
+            menuView.additionalInfo = ["cellPath": p]
+        }
+        if(gesture.state == .Began)
+        {
+            menuView.showMenuView(inView: table, atPoint: point)
+        }
+        else if(gesture.state == .Changed)
+        {
+            menuView.slideToPoint(point)
+        }
+        else if(gesture.state == .Ended)
+        {
+            menuView.dismissMenuView(point)
+        }
     }
     
     func menuItemWasPressed(menuItem: MenuItem, info: [String: AnyObject]?) {
-        println("item pressed")
+        var indexPath = info!["cellPath"] as? NSIndexPath
+        println("\(indexPath)")
     }
-
 }
 

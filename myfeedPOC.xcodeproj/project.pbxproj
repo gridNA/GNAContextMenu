@@ -15,7 +15,6 @@
 		E91F79581B0203D000EB028B /* myfeedPOCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F79571B0203D000EB028B /* myfeedPOCTests.swift */; };
 		E929D7B71B0238B4002F6F63 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D7B61B0238B4002F6F63 /* MenuView.swift */; };
 		E929D7B91B02400D002F6F63 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D7B81B02400D002F6F63 /* MenuItem.swift */; };
-		E97F3B971B021F1000F3984F /* ZContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F3B961B021F1000F3984F /* ZContextMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +40,6 @@
 		E91F79571B0203D000EB028B /* myfeedPOCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myfeedPOCTests.swift; sourceTree = "<group>"; };
 		E929D7B61B0238B4002F6F63 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		E929D7B81B02400D002F6F63 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
-		E97F3B961B021F1000F3984F /* ZContextMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZContextMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +87,6 @@
 				E91F79481B0203D000EB028B /* Images.xcassets */,
 				E91F794A1B0203D000EB028B /* LaunchScreen.xib */,
 				E91F793F1B0203D000EB028B /* Supporting Files */,
-				E97F3B961B021F1000F3984F /* ZContextMenuView.swift */,
 				E929D7B61B0238B4002F6F63 /* MenuView.swift */,
 				E929D7B81B02400D002F6F63 /* MenuItem.swift */,
 			);
@@ -170,6 +167,7 @@
 				TargetAttributes = {
 					E91F793B1B0203D000EB028B = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = K7C399XTGR;
 					};
 					E91F79501B0203D000EB028B = {
 						CreatedOnToolsVersion = 6.3;
@@ -223,7 +221,6 @@
 			files = (
 				E91F79441B0203D000EB028B /* ViewController.swift in Sources */,
 				E929D7B71B0238B4002F6F63 /* MenuView.swift in Sources */,
-				E97F3B971B021F1000F3984F /* ZContextMenuView.swift in Sources */,
 				E91F79421B0203D000EB028B /* AppDelegate.swift in Sources */,
 				E929D7B91B02400D002F6F63 /* MenuItem.swift in Sources */,
 			);
@@ -354,9 +351,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = myfeedPOC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -364,9 +364,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = myfeedPOC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
