@@ -6,7 +6,6 @@
 //  Copyright (c) gridNA. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class MenuItem: UIView {
@@ -14,6 +13,7 @@ class MenuItem: UIView {
     var titleLabel: UILabel!
     var titleView: UIView!
     var itemId: String?
+    
     private var menuIcon: UIImageView!
     private var titleText: String?
     private var activeMenuIcon: UIImageView?
@@ -21,10 +21,6 @@ class MenuItem: UIView {
     convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
         var frame = CGRectMake(0, 0, 55, 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
-        menuIcon = createMenuIcon(icon)
-        activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)
-        createLabel(title)
-        makeInactive()
     }
     
     init(icon: UIImage!, activeIcon: UIImage?, title: String?, frame: CGRect) {
@@ -32,7 +28,7 @@ class MenuItem: UIView {
         menuIcon = createMenuIcon(icon)
         activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)
         createLabel(title)
-        makeInactive()
+        activate(shouldActivate: false)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -89,15 +85,38 @@ class MenuItem: UIView {
         }
     }
     
-    func makeActive() {
-        menuIcon.hidden = true
-        activeMenuIcon?.hidden = false
-        showHideTitle(false)
-    }
-    
-    func makeInactive() {
-        menuIcon.hidden = false
-        activeMenuIcon?.hidden = true
-        showHideTitle(true)
+    /// Non-annotated text like this appears in "Description".
+    /// This top line appears slightly more separated, as a kind of abstract.
+    ///
+    /// Leave a blank line to separate further text into paragraphs.
+    ///
+    /// You can use bulleted lists (use `-`, `+` or `*`):
+    ///
+    /// - Text can be *emphasised*
+    /// - Or **strong**
+    /// - You can use backticks for `code()`
+    ///
+    /// Or numbered lists:
+    ///
+    /// 1. The numbers you use make no difference
+    /// 0. The list will still be ordered
+    /// 5. But be sensible and just use 1, 2, 3 etc…
+    ///
+    /// Indentation will create a code block, handy for example usage:
+    ///
+    ///     // Create an integer, and do nothing with it
+    ///     let myInt = 42
+    ///     doNothing(myInt)
+    ///
+    ///         // Further indentations create nested code blocks. Also notice that code blocks scroll horizontally instead of wrapping.
+    ///
+    ///
+    /// :param: int A pointless `Int` paramater.
+    /// :param: bool This `Bool` isn't used, but its default value is `false` anyway…
+    /// :returns: Nothing useful.
+    func activate(#shouldActivate: Bool) {
+        menuIcon.hidden = shouldActivate
+        activeMenuIcon?.hidden = !shouldActivate
+        showHideTitle(!shouldActivate)
     }
 }

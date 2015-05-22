@@ -6,7 +6,6 @@
 //  Copyright (c) gridNA. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 enum Direction {
@@ -27,12 +26,15 @@ class MenuView: UIView {
     var distanceToTouchPoint: CGFloat = 20
     var delegate: MenuItemDelegate?
     var additionalInfo: [String: AnyObject]?
+    
     private var touchPoint: CGPoint!
     private var menuItemsArray: Array<MenuItem>!
     private var coordinatesDict: [String: CGFloat]!
     private var currentDirection: (Direction, Direction)!
     private var currentActiveItem: MenuItem?
     private var touchPointImage: UIImageView!
+    
+    // MARK: Init section
     
     private init(frame: CGRect, image: UIImage) {
         touchPointImage = UIImageView(image: image)
@@ -55,26 +57,22 @@ class MenuView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func calculateCoordinates() {
-        var halfItemWidth = CGFloat(menuItemsArray[0].frame.width/2)
-        let c1 = touchPoint.x + touchPointImage.frame.width/2 + distanceToTouchPoint + halfItemWidth
-        let c2 = touchPoint.x - (c1 - touchPoint.x)
-        let c4 = c1 - halfItemWidth
-        let c5 = touchPoint.x
-        let c6 = c2 + halfItemWidth
-        
-        let c3 = touchPoint.y
-        let c8 = touchPoint.y + touchPointImage.frame.height/2 + distanceToTouchPoint + halfItemWidth
-        let c9 = touchPoint.y - (c8 - touchPoint.y)
-        let c7 = c8 - halfItemWidth
-        let c10 = c9 + halfItemWidth
-        coordinatesDict = ["coord1": c1, "coord2": c2, "coord3": c3, "coord4": c4,
-            "coord5": c5, "coord6": c6, "coord7": c7, "coord8": c8, "coord9": c9, "coord10": c10]
-    }
+    // MARK: Public methods
     
-    func changeDistanceToTouchPoint(distance: CGFloat) {
-        self.distanceToTouchPoint = distance
-        calculateCoordinates()
+    func handleGesture(gesture: UILongPressGestureRecognizer, inView: UIView) {
+        let point = gesture.locationInView(inView)
+        if(gesture.state == .Began)
+        {
+            showMenuView(inView: inView, atPoint: point)
+        }
+        else if(gesture.state == .Changed)
+        {
+            slideToPoint(point)
+        }
+        else if(gesture.state == .Ended)
+        {
+            dismissMenuView(point)
+        }
     }
     
     func showMenuView(#inView: UIView, atPoint: CGPoint) {
@@ -83,14 +81,47 @@ class MenuView: UIView {
         touchPointImage.center = touchPoint
         calculateCoordinates()
         menuItemsArray.map({
-            (var menuItem) -> MenuItem in
-            menuItem.center = self.touchPointImage.center //CGRect(origin: CGPointZero, size: menuItem.frame.size)
-            return menuItem
+            $0.center = self.touchPointImage.center
         })
         displayMenuItems()
     }
     
-    func displayMenuItems() {
+    func slideToPoint(point: CGPoint) {
+        if touchPoint == nil {
+            return
+        }
+        detectPoint(point, action: { (menuItem: MenuItem) in
+            self.activateItem(menuItem)
+        })
+    }
+    
+    func dismissMenuView(point: CGPoint) {
+        detectPoint(point, action: { (menuItem: MenuItem) in
+            delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
+        })
+        deactivateCurrentItem()
+        self.removeFromSuperview()
+    }
+    
+    // MARK: Private methods
+    
+    private func detectPoint(point: CGPoint, action: (menuItem: MenuItem)->Void) {
+        var p = self.convertPoint(point, fromView: superview)
+        var isActiveButton = false
+        for subview in self.subviews {
+            if CGRectContainsPoint(subview.frame, p) && subview is MenuItem {
+                isActiveButton = true
+                action(menuItem: subview as! MenuItem)
+            }
+        }
+        if let item = currentActiveItem where !isActiveButton {
+            if CGRectContainsPoint(touchPointImage.frame, point) {
+                deactivateItem(item)
+            }
+        }
+    }
+
+    private func displayMenuItems() {
         var itemNumber = Int(0)
         for menuItem in menuItemsArray {
             itemNumber++
@@ -104,14 +135,47 @@ class MenuView: UIView {
         }
     }
     
-    func animateToPosition(menuItem: MenuItem) {
+    private func animateToPosition(menuItem: MenuItem) {
         UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
             self.currentDirection = self.calculateDirections(menuItem.frame.width)
             self.setupPosition(menuItem)
-        }, completion: nil)
+            }, completion: nil)
     }
     
-    func setupPosition(menuItem: MenuItem) {
+    private func calculateDirections(menuItemWidth: CGFloat) -> (Direction, Direction) {
+        var superViewFrame = self.superview?.frame
+        var touchWidth = distanceToTouchPoint +  menuItemWidth + touchPointImage.frame.width
+        var touchHeight = distanceToTouchPoint + menuItemWidth + touchPointImage.frame.height
+        var horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame!)
+        var verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame!)
+        return(verticalDirection, horisontalDirection)
+    }
+    
+    private func determineVerticalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
+        let isBotomBorderOfScreen = touchPoint.y + size > UIScreen.mainScreen().bounds.height
+        let isTopBorderOfScreen = touchPoint.y - size < 0
+        if  isTopBorderOfScreen {
+            return .Down
+        } else if isBotomBorderOfScreen {
+            return .Up
+        } else {
+            return .Middle
+        }
+    }
+    
+    private func determineHorisontalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
+        let isRightBorderOfScreen = touchPoint.x + size > UIScreen.mainScreen().bounds.width
+        let isLeftBorderOfScreen = touchPoint.x - size < 0
+        if isLeftBorderOfScreen {
+            return .Right
+        } else if  isRightBorderOfScreen {
+            return .Left
+        } else {
+            return .Middle
+        }
+    }
+    
+    private func setupPosition(menuItem: MenuItem) {
         switch (self.currentDirection as (Direction, Direction)) {
         case (.Down, .Left), (.Down, .Middle):
             self.setupDownRigt(menuItem)
@@ -130,16 +194,32 @@ class MenuView: UIView {
         }
     }
     
-    func calculateDirections(menuItemWidth: CGFloat) -> (Direction, Direction) {
-        var superViewFrame = self.superview?.frame
-        var touchWidth = distanceToTouchPoint +  menuItemWidth + touchPointImage.frame.width
-        var touchHeight = distanceToTouchPoint + menuItemWidth + touchPointImage.frame.height
-        var horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame!)
-        var verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame!)
-        return(verticalDirection, horisontalDirection)
+    private func changeDistanceToTouchPoint(distance: CGFloat) {
+        self.distanceToTouchPoint = distance
+        calculateCoordinates()
     }
     
-    func setupDownLeft(menuItem: MenuItem) {
+    private func calculateCoordinates() {
+        var halfItemWidth = CGFloat(menuItemsArray[0].frame.width/2)
+        // x coordinates
+        let x1 = touchPoint.x + touchPointImage.frame.width/2 + distanceToTouchPoint + halfItemWidth
+        let x2 = touchPoint.x - (x1 - touchPoint.x)
+        let x4 = x1 - halfItemWidth
+        let x5 = touchPoint.x
+        let x6 = x2 + halfItemWidth
+        // y coordinates
+        let y3 = touchPoint.y
+        let y8 = touchPoint.y + touchPointImage.frame.height/2 + distanceToTouchPoint + halfItemWidth
+        let y9 = touchPoint.y - (y8 - touchPoint.y)
+        let y7 = y8 - halfItemWidth
+        let y10 = y9 + halfItemWidth
+        coordinatesDict = ["coord1": x1, "coord2": x2, "coord3": y3, "coord4": x4,
+            "coord5": x5, "coord6": x6, "coord7": y7, "coord8": y8, "coord9": y9, "coord10": y10]
+    }
+    
+    // MARK Setup positions
+    
+    private func setupDownLeft(menuItem: MenuItem) {
         switch(menuItem.itemNumber) {
         case 1:
             menuItem.center = CGPointMake(coordinatesDict["coord1"]!, coordinatesDict["coord3"]!)
@@ -155,7 +235,7 @@ class MenuView: UIView {
         }
     }
     
-    func setupDownRigt(menuItem: MenuItem) {
+    private func setupDownRigt(menuItem: MenuItem) {
         switch(menuItem.itemNumber) {
         case 1:
             menuItem.center = CGPointMake(coordinatesDict["coord2"]!, coordinatesDict["coord3"]!)
@@ -171,7 +251,7 @@ class MenuView: UIView {
         }
     }
     
-    func setupUpLeft(menuItem: MenuItem) {
+    private func setupUpLeft(menuItem: MenuItem) {
         switch(menuItem.itemNumber) {
         case 1:
             menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord9"]!)
@@ -187,7 +267,7 @@ class MenuView: UIView {
         }
     }
     
-    func setupUpRight(menuItem: MenuItem) {
+    private func setupUpRight(menuItem: MenuItem) {
         switch(menuItem.itemNumber) {
         case 1:
             menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord9"]!)
@@ -203,95 +283,40 @@ class MenuView: UIView {
         }
     }
     
-    func determineVerticalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
-        let isBotomBorderOfScreen = touchPoint.y + size > UIScreen.mainScreen().bounds.height
-        let isTopBorderOfScreen = touchPoint.y - size < 0
-        if  isTopBorderOfScreen {
-            return .Down
-        } else if isBotomBorderOfScreen {
-            return .Up
-        } else {
-            return .Middle
-        }
-    }
+    // MARK: Buttons actiovation/deactivation
     
-    func determineHorisontalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
-        let isRightBorderOfScreen = touchPoint.x + size > UIScreen.mainScreen().bounds.width
-        let isLeftBorderOfScreen = touchPoint.x - size < 0
-        if isLeftBorderOfScreen {
-            return .Right
-        } else if  isRightBorderOfScreen {
-            return .Left
-        } else {
-            return .Middle
-        }
-    }
-   
-    func slideToPoint(point: CGPoint) {
-        if touchPoint == nil {
-            return
-        }
-        detectPoint(point, action: { (menuItem: MenuItem) in
-            self.activateItem(menuItem)
-        })
-    }
-    
-    func activateItem(menuItem: MenuItem) {
+    private func activateItem(menuItem: MenuItem) {
         if currentActiveItem != menuItem {
             deactivateCurrentItem()
             currentActiveItem = menuItem
             distanceToTouchPoint = distanceToTouchPoint + CGFloat(15.0)
             calculateCoordinates()
             setupPositionAnimated(menuItem)
-            menuItem.makeActive()
+            menuItem.activate(shouldActivate: true)
             delegate?.menuItemActivated?(menuItem, info: additionalInfo)
         }
     }
     
-    func deactivateItem(menuItem: MenuItem) {
+    private func deactivateItem(menuItem: MenuItem) {
         if let item = currentActiveItem {
             currentActiveItem = nil
             distanceToTouchPoint = distanceToTouchPoint - CGFloat(15.0)
             calculateCoordinates()
             setupPositionAnimated(menuItem)
-            menuItem.makeInactive()
+            menuItem.activate(shouldActivate: false)
             delegate?.menuItemDeactivated?(menuItem, info: additionalInfo)
         }
     }
     
-    func deactivateCurrentItem() {
+    private func deactivateCurrentItem() {
         if let item = currentActiveItem {
             deactivateItem(item)
         }
     }
     
-    func setupPositionAnimated(menuItem: MenuItem) {
+    private func setupPositionAnimated(menuItem: MenuItem) {
         UIView.animateWithDuration(0.2, animations: {
              self.setupPosition(menuItem)
         })
-    }
-    
-    func dismissMenuView(point: CGPoint) {
-        detectPoint(point, action: { (menuItem: MenuItem) in
-            delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
-        })
-        deactivateCurrentItem()
-        self.removeFromSuperview()
-    }
-    
-    func detectPoint(point: CGPoint, action: (menuItem: MenuItem)->Void) {
-        var p = self.convertPoint(point, fromView: superview)
-        var isActiveButton = false
-        for subview in self.subviews {
-            if CGRectContainsPoint(subview.frame, p) && subview is MenuItem {
-                isActiveButton = true
-                action(menuItem: subview as! MenuItem)
-            }
-        }
-        if let item = currentActiveItem where !isActiveButton {
-            if CGRectContainsPoint(touchPointImage.frame, point)  {
-                deactivateItem(item)
-            }
-        }
     }
 }

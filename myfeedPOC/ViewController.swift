@@ -58,18 +58,7 @@ class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, U
         if let p = indexPath {
             menuView.additionalInfo = ["cellPath": p]
         }
-        if(gesture.state == .Began)
-        {
-            menuView.showMenuView(inView: table, atPoint: point)
-        }
-        else if(gesture.state == .Changed)
-        {
-            menuView.slideToPoint(point)
-        }
-        else if(gesture.state == .Ended)
-        {
-            menuView.dismissMenuView(point)
-        }
+        menuView.handleGesture(gesture, inView: table)
     }
     
     func menuItemWasPressed(menuItem: MenuItem, info: [String: AnyObject]?) {
