@@ -2,7 +2,7 @@
 
 # GNAContextMenu
 
-Long press context menu (like in Pintrest iOS app)
+Long press context menu (like in Pintrest for iOS app)
 
 ## Requirements
 
