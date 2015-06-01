@@ -14,22 +14,22 @@ enum Direction {
     case Down
 }
 
-@objc protocol MenuItemDelegate {
-    optional func menuItemWasPressed(menuItem: MenuItem, info: [String: AnyObject]?)
-    optional func menuItemActivated(menuItem: MenuItem, info: [String: AnyObject]?)
-    optional func menuItemDeactivated(menuItem: MenuItem, info: [String: AnyObject]?)
+@objc protocol GNAMenuItemDelegate {
+    optional func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?)
+    optional func menuItemActivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
+    optional func menuItemDeactivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
 }
 
-class MenuView: UIView {
+class GNAMenuView: UIView {
     var distanceToTouchPoint: CGFloat = 20
-    var delegate: MenuItemDelegate?
+    var delegate: GNAMenuItemDelegate?
     var additionalInfo: [String: AnyObject]?
     
     private var touchPoint: CGPoint!
-    private var menuItemsArray: Array<MenuItem>!
+    private var menuItemsArray: Array<GNAMenuItem>!
     private var coordinatesDict: [String: CGFloat]!
     private var currentDirection: (Direction, Direction)!
-    private var currentActiveItem: MenuItem?
+    private var currentActiveItem: GNAMenuItem?
     private var touchPointImage: UIImageView!
     private var angleCoef: CGFloat!
     private var xDistanceToItem: CGFloat!
@@ -45,11 +45,11 @@ class MenuView: UIView {
         self.addSubview(touchPointImage)
     }
     
-    convenience init(menuItems: Array<MenuItem>) {
+    convenience init(menuItems: Array<GNAMenuItem>) {
         self.init(size: CGSize(width: 80, height: 80), image: UIImage(named: "defaultImage")!, menuItems: menuItems)
     }
     
-    convenience init(size: CGSize, image: UIImage, menuItems: Array<MenuItem>) {
+    convenience init(size: CGSize, image: UIImage, menuItems: Array<GNAMenuItem>) {
         self.init(frame: CGRect(origin: CGPointMake(0, 0), size: size), image: image)
         menuItemsArray = menuItems
     }
@@ -90,13 +90,13 @@ class MenuView: UIView {
         if touchPoint == nil {
             return
         }
-        detectPoint(point, action: { (menuItem: MenuItem) in
+        detectPoint(point, action: { (menuItem: GNAMenuItem) in
             self.activateItem(menuItem)
         })
     }
     
     func dismissMenuView(point: CGPoint) {
-        detectPoint(point, action: { (menuItem: MenuItem) in
+        detectPoint(point, action: { (menuItem: GNAMenuItem) in
             delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
         })
         deactivateCurrentItem()
@@ -126,13 +126,13 @@ class MenuView: UIView {
         yDistanceToItem = touchPointImage.frame.height/2 + distanceToTouchPoint + CGFloat(menuItemsArray[0].frame.height/2)
     }
     
-    private func detectPoint(point: CGPoint, action: (menuItem: MenuItem)->Void) {
+    private func detectPoint(point: CGPoint, action: (menuItem: GNAMenuItem)->Void) {
         var p = self.convertPoint(point, fromView: superview)
         var isActiveButton = false
         for subview in self.subviews {
-            if CGRectContainsPoint(subview.frame, p) && subview is MenuItem {
+            if CGRectContainsPoint(subview.frame, p) && subview is GNAMenuItem {
                 isActiveButton = true
-                action(menuItem: subview as! MenuItem)
+                action(menuItem: subview as! GNAMenuItem)
             }
         }
         if let item = currentActiveItem where !isActiveButton {
@@ -196,7 +196,7 @@ class MenuView: UIView {
     
     private func negativeQuorterAngles(#startAngle: CGFloat) {
         let angle = startAngle + 90
-        menuItemsArray.map({ item -> MenuItem in
+        menuItemsArray.map({ item -> GNAMenuItem in
             let index = CGFloat(find(self.menuItemsArray, item)!)
             item.angle = (angle - self.angleCoef * index) / 180 * CGFloat(M_PI)
             return item
@@ -204,14 +204,14 @@ class MenuView: UIView {
     }
     
     private func positiveQuorterAngle(#startAngle: CGFloat) {
-        menuItemsArray.map({ item -> MenuItem in
+        menuItemsArray.map({ item -> GNAMenuItem in
             let index = CGFloat(find(self.menuItemsArray, item)!)
             item.angle = (startAngle + self.angleCoef * index) / 180.0 * CGFloat(M_PI)
             return item
         })
     }
     
-    private func animateItem(menuItem: MenuItem) {
+    private func animateItem(menuItem: GNAMenuItem) {
         UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
                 menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
             }, completion: nil)
@@ -228,7 +228,7 @@ class MenuView: UIView {
 
     // MARK: Buttons actiovation/deactivation
     
-    private func activateItem(menuItem: MenuItem) {
+    private func activateItem(menuItem: GNAMenuItem) {
         if currentActiveItem != menuItem {
             deactivateCurrentItem()
             currentActiveItem = menuItem
@@ -239,7 +239,7 @@ class MenuView: UIView {
         }
     }
     
-    private func deactivateItem(menuItem: MenuItem) {
+    private func deactivateItem(menuItem: GNAMenuItem) {
         if let item = currentActiveItem {
             currentActiveItem = nil
             distanceToTouchPoint = distanceToTouchPoint - CGFloat(15.0)
@@ -255,7 +255,7 @@ class MenuView: UIView {
         }
     }
     
-    private func setupPositionAnimated(menuItem: MenuItem) {
+    private func setupPositionAnimated(menuItem: GNAMenuItem) {
         calculateDistanceToItem()
         UIView.animateWithDuration(0.2, animations: {
              menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))

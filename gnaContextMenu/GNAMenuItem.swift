@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MenuItem: UIView {
+class GNAMenuItem: UIView {
     var titleLabel: UILabel!
     var titleView: UIView!
     var itemId: String?

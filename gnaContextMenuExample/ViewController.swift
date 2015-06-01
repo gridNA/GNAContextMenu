@@ -6,10 +6,10 @@
 
 import UIKit
 
-class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var table: UITableView!
-    var menuView: MenuView!
+    var menuView: GNAMenuView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, U
         table.delegate = self
         table.dataSource = self
         table.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "handleLongPress:"))
-        menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
+        menuView = GNAMenuView(menuItems: [GNAMenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
         menuView.delegate = self
     }
     
@@ -39,10 +39,10 @@ class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, U
         if let p = indexPath {
             menuView.additionalInfo = ["cellPath": p]
         }
-        menuView.handleGesture(gesture, inView: table)
+        3)
     }
     
-    func menuItemWasPressed(menuItem: MenuItem, info: [String: AnyObject]?) {
+    func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?) {
         var indexPath = info!["cellPath"] as? NSIndexPath
         println("\(indexPath)")
     }

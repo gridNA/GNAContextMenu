@@ -13,8 +13,8 @@
 		E9C53EC91B1C940D0079D65D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C53EC51B1C940D0079D65D /* Info.plist */; };
 		E9C53ECC1B1C94170079D65D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECA1B1C94170079D65D /* AppDelegate.swift */; };
 		E9C53ECD1B1C94170079D65D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECB1B1C94170079D65D /* ViewController.swift */; };
-		E9C53ED01B1C94200079D65D /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECE1B1C94200079D65D /* MenuItem.swift */; };
-		E9C53ED11B1C94200079D65D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECF1B1C94200079D65D /* MenuView.swift */; };
+		E9C53ED01B1C94200079D65D /* GNAMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECE1B1C94200079D65D /* GNAMenuItem.swift */; };
+		E9C53ED11B1C94200079D65D /* GNAMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECF1B1C94200079D65D /* GNAMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,9 +24,9 @@
 		E9C53EC41B1C940D0079D65D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gnaContextMenuExample/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		E9C53EC51B1C940D0079D65D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gnaContextMenuExample/Info.plist; sourceTree = SOURCE_ROOT; };
 		E9C53ECA1B1C94170079D65D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = gnaContextMenuExample/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		E9C53ECB1B1C94170079D65D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = gnaContextMenuExample/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		E9C53ECE1B1C94200079D65D /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = gnaContextMenu/MenuItem.swift; sourceTree = "<group>"; };
-		E9C53ECF1B1C94200079D65D /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = gnaContextMenu/MenuView.swift; sourceTree = "<group>"; };
+		E9C53ECB1B1C94170079D65D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ViewController.swift; path = gnaContextMenuExample/ViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E9C53ECE1B1C94200079D65D /* GNAMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GNAMenuItem.swift; path = gnaContextMenu/GNAMenuItem.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E9C53ECF1B1C94200079D65D /* GNAMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GNAMenuView.swift; path = gnaContextMenu/GNAMenuView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +81,8 @@
 		E9C53EBE1B1C93680079D65D /* gnaContextMenu */ = {
 			isa = PBXGroup;
 			children = (
-				E9C53ECE1B1C94200079D65D /* MenuItem.swift */,
-				E9C53ECF1B1C94200079D65D /* MenuView.swift */,
+				E9C53ECE1B1C94200079D65D /* GNAMenuItem.swift */,
+				E9C53ECF1B1C94200079D65D /* GNAMenuView.swift */,
 			);
 			name = gnaContextMenu;
 			sourceTree = "<group>";
@@ -169,8 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9C53ED01B1C94200079D65D /* MenuItem.swift in Sources */,
-				E9C53ED11B1C94200079D65D /* MenuView.swift in Sources */,
+				E9C53ED01B1C94200079D65D /* GNAMenuItem.swift in Sources */,
+				E9C53ED11B1C94200079D65D /* GNAMenuView.swift in Sources */,
 				E9C53ECD1B1C94170079D65D /* ViewController.swift in Sources */,
 				E9C53ECC1B1C94170079D65D /* AppDelegate.swift in Sources */,
 			);
