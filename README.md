@@ -19,24 +19,23 @@ github "gridNA/GNAContextMenu" >= 1
 
 ## How
 
+1)
 ```swift
 import GNAContextMenu
 ```
-- add 
-- 
+2) add 
+ 
 ```swift 
 UILongPressGestureRecognizer
 ```
-on view in `UIViewController`, where you plan to use context menu
+3) on view in `UIViewController`, where you plan to use context menu create GNAMenuView and set delegate 
 
-- create GNAMenuView and set delegate 
-- 
 ```swift
 var menuView = GNAMenuView(menuItems: [GNAMenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), 
               GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
 menuView.delegate = self
 ```
-- on long press 
+4) on long press 
 
 ```swift menuView.handleGesture(gesture, inView: yourView)```
 
