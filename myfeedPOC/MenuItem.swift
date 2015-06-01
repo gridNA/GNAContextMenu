@@ -7,10 +7,10 @@
 import UIKit
 
 class MenuItem: UIView {
-    var itemNumber: Int!
     var titleLabel: UILabel!
     var titleView: UIView!
     var itemId: String?
+    var angle: CGFloat!
     
     private var menuIcon: UIImageView!
     private var titleText: String?
@@ -50,13 +50,6 @@ class MenuItem: UIView {
         }
     }
     
-    func createCustomLabel(label: UILabel) {
-        if let title = titleText {
-            titleLabel = label
-            setupLabel()
-        }
-    }
-    
     private func setupLabel() {
         if let title = titleText {
             titleLabel.text = title
@@ -87,5 +80,24 @@ class MenuItem: UIView {
         menuIcon.hidden = shouldActivate
         activeMenuIcon?.hidden = !shouldActivate
         showHideTitle(!shouldActivate)
+    }
+    
+    func createCustomLabel(label: UILabel) {
+        if let title = titleText {
+            titleLabel = label
+            setupLabel()
+        }
+    }
+    
+    func changeTitle(#newTitle: String) {
+        titleLabel.text = newTitle
+    }
+    
+    func changeIcon(#newIcon: UIImage) {
+        menuIcon.image = newIcon
+    }
+    
+    func changeActiveIcon(#newActiveIcon: UIImage) {
+        activeMenuIcon?.image = newActiveIcon
     }
 }

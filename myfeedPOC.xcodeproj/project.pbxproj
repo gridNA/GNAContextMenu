@@ -16,16 +16,6 @@
 		E929D7B91B02400D002F6F63 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D7B81B02400D002F6F63 /* MenuItem.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		E91F79521B0203D000EB028B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E91F79341B0203D000EB028B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E91F793B1B0203D000EB028B;
-			remoteInfo = myfeedPOC;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		E91F793C1B0203D000EB028B /* myfeedPOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myfeedPOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91F79401B0203D000EB028B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,20 +24,12 @@
 		E91F79461B0203D000EB028B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E91F79481B0203D000EB028B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E91F794B1B0203D000EB028B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E91F79511B0203D000EB028B /* myfeedPOCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myfeedPOCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E929D7B61B0238B4002F6F63 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		E929D7B81B02400D002F6F63 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E91F79391B0203D000EB028B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E91F794E1B0203D000EB028B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -69,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				E91F793C1B0203D000EB028B /* myfeedPOC.app */,
-				E91F79511B0203D000EB028B /* myfeedPOCTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,24 +98,6 @@
 			productReference = E91F793C1B0203D000EB028B /* myfeedPOC.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E91F79501B0203D000EB028B /* myfeedPOCTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E91F795E1B0203D000EB028B /* Build configuration list for PBXNativeTarget "myfeedPOCTests" */;
-			buildPhases = (
-				E91F794D1B0203D000EB028B /* Sources */,
-				E91F794E1B0203D000EB028B /* Frameworks */,
-				E91F794F1B0203D000EB028B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E91F79531B0203D000EB028B /* PBXTargetDependency */,
-			);
-			name = myfeedPOCTests;
-			productName = myfeedPOCTests;
-			productReference = E91F79511B0203D000EB028B /* myfeedPOCTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -147,10 +110,6 @@
 					E91F793B1B0203D000EB028B = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = K7C399XTGR;
-					};
-					E91F79501B0203D000EB028B = {
-						CreatedOnToolsVersion = 6.3;
-						TestTargetID = E91F793B1B0203D000EB028B;
 					};
 				};
 			};
@@ -168,7 +127,6 @@
 			projectRoot = "";
 			targets = (
 				E91F793B1B0203D000EB028B /* myfeedPOC */,
-				E91F79501B0203D000EB028B /* myfeedPOCTests */,
 			);
 		};
 /* End PBXProject section */
@@ -181,13 +139,6 @@
 				E91F79471B0203D000EB028B /* Main.storyboard in Resources */,
 				E91F794C1B0203D000EB028B /* LaunchScreen.xib in Resources */,
 				E91F79491B0203D000EB028B /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E91F794F1B0203D000EB028B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,22 +156,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E91F794D1B0203D000EB028B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E91F79531B0203D000EB028B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E91F793B1B0203D000EB028B /* myfeedPOC */;
-			targetProxy = E91F79521B0203D000EB028B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E91F79451B0203D000EB028B /* Main.storyboard */ = {
@@ -351,40 +287,6 @@
 			};
 			name = Release;
 		};
-		E91F795F1B0203D000EB028B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = myfeedPOCTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfeedPOC.app/myfeedPOC";
-			};
-			name = Debug;
-		};
-		E91F79601B0203D000EB028B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = myfeedPOCTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfeedPOC.app/myfeedPOC";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -402,15 +304,6 @@
 			buildConfigurations = (
 				E91F795C1B0203D000EB028B /* Debug */,
 				E91F795D1B0203D000EB028B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E91F795E1B0203D000EB028B /* Build configuration list for PBXNativeTarget "myfeedPOCTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E91F795F1B0203D000EB028B /* Debug */,
-				E91F79601B0203D000EB028B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

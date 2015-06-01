@@ -31,6 +31,9 @@ class MenuView: UIView {
     private var currentDirection: (Direction, Direction)!
     private var currentActiveItem: MenuItem?
     private var touchPointImage: UIImageView!
+    private var angleCoef: CGFloat!
+    private var xDistanceToItem: CGFloat!
+    private var yDistanceToItem: CGFloat!
     
     // MARK: Init section
     
@@ -75,13 +78,12 @@ class MenuView: UIView {
     
     func showMenuView(#inView: UIView, atPoint: CGPoint) {
         inView.addSubview(self)
+        frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
         touchPoint = atPoint
         touchPointImage.center = touchPoint
-        calculateCoordinates()
-        menuItemsArray.map({
-            $0.center = self.touchPointImage.center
-        })
-        displayMenuItems()
+        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
+        currentDirection = calculateDirections(menuItemsArray[0].frame.width)
+        setupMenuView()
     }
     
     func slideToPoint(point: CGPoint) {
@@ -103,6 +105,27 @@ class MenuView: UIView {
     
     // MARK: Private methods
     
+    private func setupMenuView() {
+        calculateDistanceToItem()
+        resetItemsPosition()
+        anglesForDirection()
+        for item in menuItemsArray {
+            self.addSubview(item)
+            animateItem(item)
+        }
+    }
+    
+    private func resetItemsPosition() {
+        menuItemsArray.map({
+            $0.center = self.touchPointImage.center
+        })
+    }
+    
+    private func calculateDistanceToItem() {
+        xDistanceToItem = touchPointImage.frame.width/2 + distanceToTouchPoint + CGFloat(menuItemsArray[0].frame.width/2)
+        yDistanceToItem = touchPointImage.frame.height/2 + distanceToTouchPoint + CGFloat(menuItemsArray[0].frame.height/2)
+    }
+    
     private func detectPoint(point: CGPoint, action: (menuItem: MenuItem)->Void) {
         var p = self.convertPoint(point, fromView: superview)
         var isActiveButton = false
@@ -117,27 +140,6 @@ class MenuView: UIView {
                 deactivateItem(item)
             }
         }
-    }
-
-    private func displayMenuItems() {
-        var itemNumber = Int(0)
-        for menuItem in menuItemsArray {
-            itemNumber++
-            if itemNumber > 3 {
-                break
-            }
-            menuItem.itemNumber = itemNumber
-            frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
-            animateToPosition(menuItem)
-            self.addSubview(menuItem)
-        }
-    }
-    
-    private func animateToPosition(menuItem: MenuItem) {
-        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
-            self.currentDirection = self.calculateDirections(menuItem.frame.width)
-            self.setupPosition(menuItem)
-            }, completion: nil)
     }
     
     private func calculateDirections(menuItemWidth: CGFloat) -> (Direction, Direction) {
@@ -173,114 +175,57 @@ class MenuView: UIView {
         }
     }
     
-    private func setupPosition(menuItem: MenuItem) {
+    private func anglesForDirection() {
         switch (self.currentDirection as (Direction, Direction)) {
         case (.Down, .Left), (.Down, .Middle):
-            self.setupDownRigt(menuItem)
+            negativeQuorterAngles(startAngle: 90)
             break
         case (.Down, .Right):
-            self.setupDownLeft(menuItem)
+            positiveQuorterAngle(startAngle: 0)
             break
         case (.Middle, .Left), (.Middle, .Middle), (.Up, .Left), (.Up, .Middle):
-            self.setupUpLeft(menuItem)
+            negativeQuorterAngles(startAngle: 180)
             break
         case (.Middle, .Right), (.Up, .Right):
-            self.setupUpRight(menuItem)
+            positiveQuorterAngle(startAngle: 270)
             break
         default:
             break
         }
     }
     
-    private func changeDistanceToTouchPoint(distance: CGFloat) {
-        self.distanceToTouchPoint = distance
-        calculateCoordinates()
+    private func negativeQuorterAngles(#startAngle: CGFloat) {
+        let angle = startAngle + 90
+        menuItemsArray.map({ item -> MenuItem in
+            let index = CGFloat(find(self.menuItemsArray, item)!)
+            item.angle = (angle - self.angleCoef * index) / 180 * CGFloat(M_PI)
+            return item
+        })
     }
     
-    private func calculateCoordinates() {
-        var halfItemWidth = CGFloat(menuItemsArray[0].frame.width/2)
-        // x coordinates
-        let x1 = touchPoint.x + touchPointImage.frame.width/2 + distanceToTouchPoint + halfItemWidth
-        let x2 = touchPoint.x - (x1 - touchPoint.x)
-        let x4 = x1 - halfItemWidth
-        let x5 = touchPoint.x
-        let x6 = x2 + halfItemWidth
-        // y coordinates
-        let y3 = touchPoint.y
-        let y8 = touchPoint.y + touchPointImage.frame.height/2 + distanceToTouchPoint + halfItemWidth
-        let y9 = touchPoint.y - (y8 - touchPoint.y)
-        let y7 = y8 - halfItemWidth
-        let y10 = y9 + halfItemWidth
-        coordinatesDict = ["coord1": x1, "coord2": x2, "coord3": y3, "coord4": x4,
-            "coord5": x5, "coord6": x6, "coord7": y7, "coord8": y8, "coord9": y9, "coord10": y10]
+    private func positiveQuorterAngle(#startAngle: CGFloat) {
+        menuItemsArray.map({ item -> MenuItem in
+            let index = CGFloat(find(self.menuItemsArray, item)!)
+            item.angle = (startAngle + self.angleCoef * index) / 180.0 * CGFloat(M_PI)
+            return item
+        })
     }
     
-    // MARK Setup positions
+    private func animateItem(menuItem: MenuItem) {
+        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
+                menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
+            }, completion: nil)
+    }
     
-    private func setupDownLeft(menuItem: MenuItem) {
-        switch(menuItem.itemNumber) {
-        case 1:
-            menuItem.center = CGPointMake(coordinatesDict["coord1"]!, coordinatesDict["coord3"]!)
-            break
-        case 2:
-            menuItem.center = CGPointMake(coordinatesDict["coord4"]!, coordinatesDict["coord7"]!)
-            break
-        case 3:
-            menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord8"]!)
-            break
-        default:
-            break
+    private func calculatePointCoordiantes(angle: CGFloat) -> (CGFloat, CGFloat) {
+        if xDistanceToItem == nil || yDistanceToItem == nil {
+            calculateDistanceToItem()
         }
+        let x = touchPoint.x + cos(angle) * xDistanceToItem
+        let y = touchPoint.y + sin(angle) * yDistanceToItem
+        return (x, y)
     }
-    
-    private func setupDownRigt(menuItem: MenuItem) {
-        switch(menuItem.itemNumber) {
-        case 1:
-            menuItem.center = CGPointMake(coordinatesDict["coord2"]!, coordinatesDict["coord3"]!)
-            break
-        case 2:
-            menuItem.center = CGPointMake(coordinatesDict["coord6"]!, coordinatesDict["coord7"]!)
-            break
-        case 3:
-            menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord8"]!)
-            break
-        default:
-            break
-        }
-    }
-    
-    private func setupUpLeft(menuItem: MenuItem) {
-        switch(menuItem.itemNumber) {
-        case 1:
-            menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord9"]!)
-            break
-        case 2:
-            menuItem.center = CGPointMake(coordinatesDict["coord6"]!, coordinatesDict["coord10"]!)
-            break
-        case 3:
-            menuItem.center = CGPointMake(coordinatesDict["coord2"]!, coordinatesDict["coord3"]!)
-            break
-        default:
-            break
-        }
-    }
-    
-    private func setupUpRight(menuItem: MenuItem) {
-        switch(menuItem.itemNumber) {
-        case 1:
-            menuItem.center = CGPointMake(coordinatesDict["coord5"]!, coordinatesDict["coord9"]!)
-            break
-        case 2:
-            menuItem.center = CGPointMake(coordinatesDict["coord4"]!, coordinatesDict["coord10"]!)
-            break
-        case 3:
-            menuItem.center = CGPointMake(coordinatesDict["coord1"]!, coordinatesDict["coord3"]!)
-            break
-        default:
-            break
-        }
-    }
-    
+
     // MARK: Buttons actiovation/deactivation
     
     private func activateItem(menuItem: MenuItem) {
@@ -288,7 +233,6 @@ class MenuView: UIView {
             deactivateCurrentItem()
             currentActiveItem = menuItem
             distanceToTouchPoint = distanceToTouchPoint + CGFloat(15.0)
-            calculateCoordinates()
             setupPositionAnimated(menuItem)
             menuItem.activate(shouldActivate: true)
             delegate?.menuItemActivated?(menuItem, info: additionalInfo)
@@ -299,7 +243,6 @@ class MenuView: UIView {
         if let item = currentActiveItem {
             currentActiveItem = nil
             distanceToTouchPoint = distanceToTouchPoint - CGFloat(15.0)
-            calculateCoordinates()
             setupPositionAnimated(menuItem)
             menuItem.activate(shouldActivate: false)
             delegate?.menuItemDeactivated?(menuItem, info: additionalInfo)
@@ -313,8 +256,9 @@ class MenuView: UIView {
     }
     
     private func setupPositionAnimated(menuItem: MenuItem) {
+        calculateDistanceToItem()
         UIView.animateWithDuration(0.2, animations: {
-             self.setupPosition(menuItem)
+             menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
         })
     }
 }
