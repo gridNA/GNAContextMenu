@@ -39,7 +39,7 @@ class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate
         if let p = indexPath {
             menuView.additionalInfo = ["cellPath": p]
         }
-        3)
+        menuView.handleGesture(gesture, inView: table)
     }
     
     func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?) {
