@@ -7,25 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E91F79421B0203D000EB028B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F79411B0203D000EB028B /* AppDelegate.swift */; };
-		E91F79441B0203D000EB028B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F79431B0203D000EB028B /* ViewController.swift */; };
-		E91F79471B0203D000EB028B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E91F79451B0203D000EB028B /* Main.storyboard */; };
-		E91F79491B0203D000EB028B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E91F79481B0203D000EB028B /* Images.xcassets */; };
-		E91F794C1B0203D000EB028B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91F794A1B0203D000EB028B /* LaunchScreen.xib */; };
-		E929D7B71B0238B4002F6F63 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D7B61B0238B4002F6F63 /* MenuView.swift */; };
-		E929D7B91B02400D002F6F63 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929D7B81B02400D002F6F63 /* MenuItem.swift */; };
+		E9C53EC61B1C940D0079D65D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C53EC01B1C940D0079D65D /* LaunchScreen.xib */; };
+		E9C53EC71B1C940D0079D65D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C53EC21B1C940D0079D65D /* Main.storyboard */; };
+		E9C53EC81B1C940D0079D65D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9C53EC41B1C940D0079D65D /* Images.xcassets */; };
+		E9C53EC91B1C940D0079D65D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C53EC51B1C940D0079D65D /* Info.plist */; };
+		E9C53ECC1B1C94170079D65D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECA1B1C94170079D65D /* AppDelegate.swift */; };
+		E9C53ECD1B1C94170079D65D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECB1B1C94170079D65D /* ViewController.swift */; };
+		E9C53ED01B1C94200079D65D /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECE1B1C94200079D65D /* MenuItem.swift */; };
+		E9C53ED11B1C94200079D65D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C53ECF1B1C94200079D65D /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E91F793C1B0203D000EB028B /* myfeedPOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myfeedPOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E91F79401B0203D000EB028B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E91F79411B0203D000EB028B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E91F79431B0203D000EB028B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E91F79461B0203D000EB028B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E91F79481B0203D000EB028B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E91F794B1B0203D000EB028B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		E929D7B61B0238B4002F6F63 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		E929D7B81B02400D002F6F63 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		E91F793C1B0203D000EB028B /* GNAContextMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GNAContextMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9C53EC11B1C940D0079D65D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		E9C53EC31B1C940D0079D65D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		E9C53EC41B1C940D0079D65D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gnaContextMenuExample/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		E9C53EC51B1C940D0079D65D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gnaContextMenuExample/Info.plist; sourceTree = SOURCE_ROOT; };
+		E9C53ECA1B1C94170079D65D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = gnaContextMenuExample/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		E9C53ECB1B1C94170079D65D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = gnaContextMenuExample/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		E9C53ECE1B1C94200079D65D /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuItem.swift; path = gnaContextMenu/MenuItem.swift; sourceTree = "<group>"; };
+		E9C53ECF1B1C94200079D65D /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuView.swift; path = gnaContextMenu/MenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +43,8 @@
 		E91F79331B0203D000EB028B = {
 			isa = PBXGroup;
 			children = (
-				E91F793E1B0203D000EB028B /* myfeedPOC */,
+				E9C53EBE1B1C93680079D65D /* gnaContextMenu */,
+				E91F793E1B0203D000EB028B /* gnaContextMenuExample */,
 				E91F793D1B0203D000EB028B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,40 +52,57 @@
 		E91F793D1B0203D000EB028B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E91F793C1B0203D000EB028B /* myfeedPOC.app */,
+				E91F793C1B0203D000EB028B /* GNAContextMenu.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E91F793E1B0203D000EB028B /* myfeedPOC */ = {
+		E91F793E1B0203D000EB028B /* gnaContextMenuExample */ = {
 			isa = PBXGroup;
 			children = (
-				E91F79411B0203D000EB028B /* AppDelegate.swift */,
-				E91F79431B0203D000EB028B /* ViewController.swift */,
-				E91F79451B0203D000EB028B /* Main.storyboard */,
-				E91F79481B0203D000EB028B /* Images.xcassets */,
-				E91F794A1B0203D000EB028B /* LaunchScreen.xib */,
+				E9C53ECA1B1C94170079D65D /* AppDelegate.swift */,
+				E9C53ECB1B1C94170079D65D /* ViewController.swift */,
 				E91F793F1B0203D000EB028B /* Supporting Files */,
-				E929D7B61B0238B4002F6F63 /* MenuView.swift */,
-				E929D7B81B02400D002F6F63 /* MenuItem.swift */,
 			);
+			name = gnaContextMenuExample;
 			path = myfeedPOC;
 			sourceTree = "<group>";
 		};
 		E91F793F1B0203D000EB028B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E91F79401B0203D000EB028B /* Info.plist */,
+				E9C53EC51B1C940D0079D65D /* Info.plist */,
+				E9C53EBF1B1C940D0079D65D /* Base.lproj */,
+				E9C53EC41B1C940D0079D65D /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E9C53EBE1B1C93680079D65D /* gnaContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E9C53ECE1B1C94200079D65D /* MenuItem.swift */,
+				E9C53ECF1B1C94200079D65D /* MenuView.swift */,
+			);
+			name = gnaContextMenu;
+			sourceTree = "<group>";
+		};
+		E9C53EBF1B1C940D0079D65D /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				E9C53EC01B1C940D0079D65D /* LaunchScreen.xib */,
+				E9C53EC21B1C940D0079D65D /* Main.storyboard */,
+			);
+			name = Base.lproj;
+			path = gnaContextMenuExample/Base.lproj;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E91F793B1B0203D000EB028B /* myfeedPOC */ = {
+		E91F793B1B0203D000EB028B /* GNAContextMenu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E91F795B1B0203D000EB028B /* Build configuration list for PBXNativeTarget "myfeedPOC" */;
+			buildConfigurationList = E91F795B1B0203D000EB028B /* Build configuration list for PBXNativeTarget "GNAContextMenu" */;
 			buildPhases = (
 				E91F79381B0203D000EB028B /* Sources */,
 				E91F79391B0203D000EB028B /* Frameworks */,
@@ -93,9 +112,9 @@
 			);
 			dependencies = (
 			);
-			name = myfeedPOC;
+			name = GNAContextMenu;
 			productName = myfeedPOC;
-			productReference = E91F793C1B0203D000EB028B /* myfeedPOC.app */;
+			productReference = E91F793C1B0203D000EB028B /* GNAContextMenu.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -113,7 +132,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E91F79371B0203D000EB028B /* Build configuration list for PBXProject "myfeedPOC" */;
+			buildConfigurationList = E91F79371B0203D000EB028B /* Build configuration list for PBXProject "GNAContextMenu" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -126,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E91F793B1B0203D000EB028B /* myfeedPOC */,
+				E91F793B1B0203D000EB028B /* GNAContextMenu */,
 			);
 		};
 /* End PBXProject section */
@@ -136,9 +155,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91F79471B0203D000EB028B /* Main.storyboard in Resources */,
-				E91F794C1B0203D000EB028B /* LaunchScreen.xib in Resources */,
-				E91F79491B0203D000EB028B /* Images.xcassets in Resources */,
+				E9C53EC91B1C940D0079D65D /* Info.plist in Resources */,
+				E9C53EC81B1C940D0079D65D /* Images.xcassets in Resources */,
+				E9C53EC61B1C940D0079D65D /* LaunchScreen.xib in Resources */,
+				E9C53EC71B1C940D0079D65D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,30 +169,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91F79441B0203D000EB028B /* ViewController.swift in Sources */,
-				E929D7B71B0238B4002F6F63 /* MenuView.swift in Sources */,
-				E91F79421B0203D000EB028B /* AppDelegate.swift in Sources */,
-				E929D7B91B02400D002F6F63 /* MenuItem.swift in Sources */,
+				E9C53ED01B1C94200079D65D /* MenuItem.swift in Sources */,
+				E9C53ED11B1C94200079D65D /* MenuView.swift in Sources */,
+				E9C53ECD1B1C94170079D65D /* ViewController.swift in Sources */,
+				E9C53ECC1B1C94170079D65D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E91F79451B0203D000EB028B /* Main.storyboard */ = {
+		E9C53EC01B1C940D0079D65D /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E91F79461B0203D000EB028B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E91F794A1B0203D000EB028B /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E91F794B1B0203D000EB028B /* Base */,
+				E9C53EC11B1C940D0079D65D /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		E9C53EC21B1C940D0079D65D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C53EC31B1C940D0079D65D /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -267,9 +287,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = myfeedPOC/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/gnaContextMenuExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GNAContextMenu;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -280,9 +300,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = myfeedPOC/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/gnaContextMenuExample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GNAContextMenu;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -290,7 +310,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E91F79371B0203D000EB028B /* Build configuration list for PBXProject "myfeedPOC" */ = {
+		E91F79371B0203D000EB028B /* Build configuration list for PBXProject "GNAContextMenu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E91F79591B0203D000EB028B /* Debug */,
@@ -299,7 +319,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E91F795B1B0203D000EB028B /* Build configuration list for PBXNativeTarget "myfeedPOC" */ = {
+		E91F795B1B0203D000EB028B /* Build configuration list for PBXNativeTarget "GNAContextMenu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E91F795C1B0203D000EB028B /* Debug */,

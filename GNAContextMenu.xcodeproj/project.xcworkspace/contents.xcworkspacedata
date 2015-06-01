@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:myfeedPOC.xcodeproj">
+      location = "self:/Users/kgridina/Desktop/myfeedPOC/GNAContextMenu.xcodeproj">
    </FileRef>
 </Workspace>

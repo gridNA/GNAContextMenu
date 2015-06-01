@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91F793B1B0203D000EB028B"
-               BuildableName = "myfeedPOC.app"
-               BlueprintName = "myfeedPOC"
-               ReferencedContainer = "container:myfeedPOC.xcodeproj">
+               BuildableName = "GNAContextMenu.app"
+               BlueprintName = "GNAContextMenu"
+               ReferencedContainer = "container:GNAContextMenu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "E91F79501B0203D000EB028B"
                BuildableName = "myfeedPOCTests.xctest"
                BlueprintName = "myfeedPOCTests"
-               ReferencedContainer = "container:myfeedPOC.xcodeproj">
+               ReferencedContainer = "container:GNAContextMenu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "E91F79501B0203D000EB028B"
                BuildableName = "myfeedPOCTests.xctest"
                BlueprintName = "myfeedPOCTests"
-               ReferencedContainer = "container:myfeedPOC.xcodeproj">
+               ReferencedContainer = "container:GNAContextMenu.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91F793B1B0203D000EB028B"
-            BuildableName = "myfeedPOC.app"
-            BlueprintName = "myfeedPOC"
-            ReferencedContainer = "container:myfeedPOC.xcodeproj">
+            BuildableName = "GNAContextMenu.app"
+            BlueprintName = "GNAContextMenu"
+            ReferencedContainer = "container:GNAContextMenu.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91F793B1B0203D000EB028B"
-            BuildableName = "myfeedPOC.app"
-            BlueprintName = "myfeedPOC"
-            ReferencedContainer = "container:myfeedPOC.xcodeproj">
+            BuildableName = "GNAContextMenu.app"
+            BlueprintName = "GNAContextMenu"
+            ReferencedContainer = "container:GNAContextMenu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91F793B1B0203D000EB028B"
-            BuildableName = "myfeedPOC.app"
-            BlueprintName = "myfeedPOC"
-            ReferencedContainer = "container:myfeedPOC.xcodeproj">
+            BuildableName = "GNAContextMenu.app"
+            BlueprintName = "GNAContextMenu"
+            ReferencedContainer = "container:GNAContextMenu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
