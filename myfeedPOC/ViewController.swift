@@ -1,9 +1,7 @@
 //
-//  ViewController.swift
-//  myfeedPOC
-//
-//  Created by Kateryna Gridina on 12/05/15.
+//  Created by Kateryna Gridina.
 //  Copyright (c) gridNA. All rights reserved.
+//  Latest version can be found at https://github.com/gridNA/GNAContextMenu
 //
 
 import UIKit
@@ -24,15 +22,6 @@ class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, U
         menuView = MenuView(menuItems: [MenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"), MenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
         menuView.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        
-    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -40,16 +29,8 @@ class ViewController: UIViewController, MenuItemDelegate, UITableViewDelegate, U
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "reuseIdentifier")
-        let b = UIButton(frame: CGRectMake(0, 0, 30, 30))
-        b.setTitle("✸", forState: .Normal)
-        b.backgroundColor = UIColor.grayColor()
-        b.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
-        cell.addSubview(b)
+        cell.textLabel?.text = "Some title"
         return cell
-    }
-    
-    func pressed(sender: UIButton!) {
-        println("button touch")
     }
     
     func handleLongPress(gesture: UILongPressGestureRecognizer) {
