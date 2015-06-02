@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0DBA21F3-AA3E-45F0-8495-B50503699395</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GNAContextMenu</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>670659EF1543150415FAD93F70ED59E3CE48E5CB</key>
+		<string>https://github.com/KaterynaGridina/menu.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GNAContextMenu.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>670659EF1543150415FAD93F70ED59E3CE48E5CB</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/KaterynaGridina/menu.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>670659EF1543150415FAD93F70ED59E3CE48E5CB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>670659EF1543150415FAD93F70ED59E3CE48E5CB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>someF</string>
+		</dict>
+	</array>
+</dict>
+</plist>
