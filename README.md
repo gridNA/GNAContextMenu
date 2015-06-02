@@ -47,3 +47,7 @@ You can also implement GNAMenuItemDelegate methods:
   menuItemDeactivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
 ```
 Please see example for more info.
+
+## Example
+
+![Example](gnaContextMenuExample/GNAContextMenuExample/gnaContextMenuExample.gif)
