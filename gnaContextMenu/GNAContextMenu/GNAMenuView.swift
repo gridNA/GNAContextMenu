@@ -14,16 +14,16 @@ enum Direction {
     case Down
 }
 
-@objc protocol GNAMenuItemDelegate {
+@objc public protocol GNAMenuItemDelegate {
     optional func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?)
     optional func menuItemActivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
     optional func menuItemDeactivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
 }
 
-class GNAMenuView: UIView {
-    var distanceToTouchPoint: CGFloat = 20
-    var delegate: GNAMenuItemDelegate?
-    var additionalInfo: [String: AnyObject]?
+public class GNAMenuView: UIView {
+    public var distanceToTouchPoint: CGFloat = 20
+    public var delegate: GNAMenuItemDelegate?
+    public var additionalInfo: [String: AnyObject]?
     
     private var touchPoint: CGPoint!
     private var menuItemsArray: Array<GNAMenuItem>!
@@ -45,22 +45,22 @@ class GNAMenuView: UIView {
         self.addSubview(touchPointImage)
     }
     
-    convenience init(menuItems: Array<GNAMenuItem>) {
+    public convenience init(menuItems: Array<GNAMenuItem>) {
         self.init(size: CGSize(width: 80, height: 80), image: UIImage(named: "defaultImage")!, menuItems: menuItems)
     }
     
-    convenience init(size: CGSize, image: UIImage, menuItems: Array<GNAMenuItem>) {
+    public convenience init(size: CGSize, image: UIImage, menuItems: Array<GNAMenuItem>) {
         self.init(frame: CGRect(origin: CGPointMake(0, 0), size: size), image: image)
         menuItemsArray = menuItems
     }
     
-    required init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Public methods
     
-    func handleGesture(gesture: UILongPressGestureRecognizer, inView: UIView) {
+    public func handleGesture(gesture: UILongPressGestureRecognizer, inView: UIView) {
         let point = gesture.locationInView(inView)
         if(gesture.state == .Began)
         {
@@ -76,7 +76,7 @@ class GNAMenuView: UIView {
         }
     }
     
-    func showMenuView(#inView: UIView, atPoint: CGPoint) {
+    public func showMenuView(#inView: UIView, atPoint: CGPoint) {
         inView.addSubview(self)
         frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
         touchPoint = atPoint
@@ -86,7 +86,7 @@ class GNAMenuView: UIView {
         setupMenuView()
     }
     
-    func slideToPoint(point: CGPoint) {
+    public func slideToPoint(point: CGPoint) {
         if touchPoint == nil {
             return
         }
@@ -95,7 +95,7 @@ class GNAMenuView: UIView {
         })
     }
     
-    func dismissMenuView(point: CGPoint) {
+    public func dismissMenuView(point: CGPoint) {
         detectPoint(point, action: { (menuItem: GNAMenuItem) in
             delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
         })

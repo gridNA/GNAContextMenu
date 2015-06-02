@@ -6,22 +6,22 @@
 
 import UIKit
 
-class GNAMenuItem: UIView {
-    var titleLabel: UILabel!
-    var titleView: UIView!
-    var itemId: String?
-    var angle: CGFloat!
+public class GNAMenuItem: UIView {
+    public var titleLabel: UILabel!
+    public var titleView: UIView!
+    public var itemId: String?
+    public var angle: CGFloat!
     
     private var menuIcon: UIImageView!
     private var titleText: String?
     private var activeMenuIcon: UIImageView?
     
-    convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
+    public convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
         var frame = CGRectMake(0, 0, 55, 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
     }
     
-    init(icon: UIImage!, activeIcon: UIImage?, title: String?, frame: CGRect) {
+    public init(icon: UIImage!, activeIcon: UIImage?, title: String?, frame: CGRect) {
         super.init(frame: frame)
         menuIcon = createMenuIcon(icon)
         activeMenuIcon = createMenuIcon(activeIcon == nil ? icon : activeIcon)
@@ -29,7 +29,7 @@ class GNAMenuItem: UIView {
         activate(shouldActivate: false)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -76,28 +76,28 @@ class GNAMenuItem: UIView {
         }
     }
     
-    func activate(#shouldActivate: Bool) {
+    public func activate(#shouldActivate: Bool) {
         menuIcon.hidden = shouldActivate
         activeMenuIcon?.hidden = !shouldActivate
         showHideTitle(!shouldActivate)
     }
     
-    func createCustomLabel(label: UILabel) {
+    public func createCustomLabel(label: UILabel) {
         if let title = titleText {
             titleLabel = label
             setupLabel()
         }
     }
     
-    func changeTitle(#newTitle: String) {
+    public func changeTitle(#newTitle: String) {
         titleLabel.text = newTitle
     }
     
-    func changeIcon(#newIcon: UIImage) {
+    public func changeIcon(#newIcon: UIImage) {
         menuIcon.image = newIcon
     }
     
-    func changeActiveIcon(#newActiveIcon: UIImage) {
+    public func changeActiveIcon(#newActiveIcon: UIImage) {
         activeMenuIcon?.image = newActiveIcon
     }
 }

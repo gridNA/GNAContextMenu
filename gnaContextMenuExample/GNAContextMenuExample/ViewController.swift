@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import GNAContextMenu
 
 class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate, UITableViewDataSource {
 
