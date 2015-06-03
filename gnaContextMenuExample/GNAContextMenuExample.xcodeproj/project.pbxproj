@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E930D7781B1EF8D0002A14E1 /* GNAContextMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E960D89E1B1DA2B1006A17A0 /* GNAContextMenu.framework */; };
+		E930D77C1B1EF9BB002A14E1 /* GNAContextMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E960D89E1B1DA2B1006A17A0 /* GNAContextMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E930D7841B1EFA4A002A14E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E930D7831B1EFA4A002A14E1 /* Images.xcassets */; };
 		E960D8891B1DA18B006A17A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960D8851B1DA18B006A17A0 /* AppDelegate.swift */; };
 		E960D88A1B1DA18B006A17A0 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = E960D8861B1DA18B006A17A0 /* Base.lproj */; };
 		E960D88C1B1DA18B006A17A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960D8881B1DA18B006A17A0 /* ViewController.swift */; };
@@ -14,6 +17,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E930D7791B1EF907002A14E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E960D8991B1DA2B1006A17A0 /* GNAContextMenu.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E960D8351B1D9FEB006A17A0;
+			remoteInfo = GNAContextMenu;
+		};
+		E930D77D1B1EF9BB002A14E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E960D8991B1DA2B1006A17A0 /* GNAContextMenu.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E960D8351B1D9FEB006A17A0;
+			remoteInfo = GNAContextMenu;
+		};
 		E960D89D1B1DA2B1006A17A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E960D8991B1DA2B1006A17A0 /* GNAContextMenu.xcodeproj */;
@@ -23,7 +40,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E930D77F1B1EF9BB002A14E1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E930D77C1B1EF9BB002A14E1 /* GNAContextMenu.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E930D7831B1EFA4A002A14E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../gnaContextMenuExample/GNAContextMenuExample/Images.xcassets; sourceTree = "<group>"; };
 		E960D85F1B1DA0C4006A17A0 /* GNAContextMenuExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GNAContextMenuExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E960D8631B1DA0C4006A17A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E960D8851B1DA18B006A17A0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E930D7781B1EF8D0002A14E1 /* GNAContextMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +97,7 @@
 		E960D8611B1DA0C4006A17A0 /* GNAContextMenuExample */ = {
 			isa = PBXGroup;
 			children = (
+				E930D7831B1EFA4A002A14E1 /* Images.xcassets */,
 				E960D8851B1DA18B006A17A0 /* AppDelegate.swift */,
 				E960D8881B1DA18B006A17A0 /* ViewController.swift */,
 				E960D8D31B1DA898006A17A0 /* Main.storyboard */,
@@ -99,10 +133,13 @@
 				E960D85B1B1DA0C4006A17A0 /* Sources */,
 				E960D85C1B1DA0C4006A17A0 /* Frameworks */,
 				E960D85D1B1DA0C4006A17A0 /* Resources */,
+				E930D77F1B1EF9BB002A14E1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E930D77A1B1EF907002A14E1 /* PBXTargetDependency */,
+				E930D77E1B1EF9BB002A14E1 /* PBXTargetDependency */,
 			);
 			name = GNAContextMenuExample;
 			productName = GNAContextMenuExample;
@@ -162,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E930D7841B1EFA4A002A14E1 /* Images.xcassets in Resources */,
 				E960D88A1B1DA18B006A17A0 /* Base.lproj in Resources */,
 				E960D8D41B1DA898006A17A0 /* Main.storyboard in Resources */,
 			);
@@ -180,6 +218,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E930D77A1B1EF907002A14E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GNAContextMenu;
+			targetProxy = E930D7791B1EF907002A14E1 /* PBXContainerItemProxy */;
+		};
+		E930D77E1B1EF9BB002A14E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GNAContextMenu;
+			targetProxy = E930D77D1B1EF9BB002A14E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E960D87C1B1DA0C4006A17A0 /* Debug */ = {
