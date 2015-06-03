@@ -57,4 +57,4 @@ Please see example for more info.
 
 ## Example
 
-![Example](gnaContextMenuExample/GNAContextMenuExample/gnaContextMenuExample.gif)
+![Example](gnaContextMenuExample/GNAContextMenuExample/GNAContextMenuExample.gif)
