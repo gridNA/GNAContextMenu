@@ -31,8 +31,13 @@ UILongPressGestureRecognizer
 2) create GNAMenuView and set delegate 
 
 ```swift
-var menuView = GNAMenuView(menuItems: [GNAMenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"), 
-              GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")])
+var menuView = GNAMenuView(menuItems: 
+              [GNAMenuItem(icon: UIImage(named: "shopingCart_inactive"), 
+                           activeIcon: UIImage(named: "shopingCart"), 
+                           title: "Shop it"), 
+              GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), 
+                          activeIcon: UIImage(named: "wishlist"), 
+                          title: "Wish")])
 menuView.delegate = self
 ```
 3) on long press 
