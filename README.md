@@ -37,7 +37,9 @@ menuView.delegate = self
 ```
 3) on long press 
 
-```swift menuView.handleGesture(gesture, inView: yourView)```
+```swift 
+ menuView.handleGesture(gesture, inView: yourView)
+ ```
 
 You can also implement GNAMenuItemDelegate methods:
 
