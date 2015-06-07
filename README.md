@@ -10,7 +10,13 @@ Long press context menu (like in Pintrest for iOS app)
 - Xcode 6.3+
 
 ## Installation
-
+ 
+The easiest way is through [CocoaPods](http://cocoapods.org). Simply add the dependency to your `Podfile` and then `pod install`:
+ 
+ ```ruby
+ pod `GNAContextMenu`, `~> 1`
+ ```
+ 
 Or [Carthage](https://github.com/Carthage/Carthage). Add the depdency to your `Cartfile` and then `carthage update`:
 
 ```ogdl
