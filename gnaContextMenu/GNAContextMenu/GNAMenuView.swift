@@ -81,7 +81,7 @@ public class GNAMenuView: UIView {
         frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
         touchPoint = atPoint
         touchPointImage.center = touchPoint
-        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
+        angleCoef = 90.0 / CGFloat(menuItemsArray.count == 2 ? menuItemsArray.count : menuItemsArray.count - 1)
         currentDirection = calculateDirections(menuItemsArray[0].frame.width)
         setupMenuView()
     }
@@ -127,7 +127,7 @@ public class GNAMenuView: UIView {
     }
     
     private func detectPoint(point: CGPoint, action: (menuItem: GNAMenuItem)->Void) {
-        var p = self.convertPoint(point, fromView: superview)
+        let p = self.convertPoint(point, fromView: superview)
         var isActiveButton = false
         for subview in self.subviews {
             if CGRectContainsPoint(subview.frame, p) && subview is GNAMenuItem {
@@ -143,11 +143,11 @@ public class GNAMenuView: UIView {
     }
     
     private func calculateDirections(menuItemWidth: CGFloat) -> (Direction, Direction) {
-        var superViewFrame = self.superview?.frame
-        var touchWidth = distanceToTouchPoint +  menuItemWidth + touchPointImage.frame.width
-        var touchHeight = distanceToTouchPoint + menuItemWidth + touchPointImage.frame.height
-        var horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame!)
-        var verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame!)
+        let superViewFrame = self.superview?.frame
+        let touchWidth = distanceToTouchPoint +  menuItemWidth + touchPointImage.frame.width
+        let touchHeight = distanceToTouchPoint + menuItemWidth + touchPointImage.frame.height
+        let horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame!)
+        let verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame!)
         return(verticalDirection, horisontalDirection)
     }
     

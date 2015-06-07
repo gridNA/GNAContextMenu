@@ -17,7 +17,7 @@ public class GNAMenuItem: UIView {
     private var activeMenuIcon: UIImageView?
     
     public convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
-        var frame = CGRectMake(0, 0, 55, 55)
+        let frame = CGRectMake(0, 0, 55, 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
     }
     
@@ -60,7 +60,7 @@ public class GNAMenuItem: UIView {
     }
     
     private func createMenuIcon(menuIconImage: UIImage) -> UIImageView {
-        var iconView = UIImageView(image: menuIconImage)
+        let iconView = UIImageView(image: menuIconImage)
         iconView.frame = self.bounds
         iconView.contentMode = UIViewContentMode.ScaleAspectFit
         self.addSubview(iconView)
