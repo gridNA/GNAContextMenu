@@ -81,7 +81,7 @@ public class GNAMenuView: UIView {
         frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
         touchPoint = atPoint
         touchPointImage.center = touchPoint
-        angleCoef = 90.0 / CGFloat(menuItemsArray.count == 2 ? menuItemsArray.count : menuItemsArray.count - 1)
+        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
         currentDirection = calculateDirections(menuItemsArray[0].frame.width)
         setupMenuView()
     }
