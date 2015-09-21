@@ -29,7 +29,7 @@ public class GNAMenuItem: UIView {
         activate(shouldActivate: false)
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -38,7 +38,11 @@ public class GNAMenuItem: UIView {
             titleText = itemTitle
             titleView = UIView()
             titleLabel = UILabel()
-            titleLabel.font = UIFont.systemFontOfSize(11, weight: 1)
+            if #available(iOS 8.2, *) {
+                titleLabel.font = UIFont.systemFontOfSize(11, weight: 1)
+            } else {
+                titleLabel.font = UIFont.systemFontOfSize(11)
+            }
             titleLabel.textColor = UIColor.whiteColor()
             titleLabel.textAlignment = .Center
             setupLabel()
@@ -70,34 +74,34 @@ public class GNAMenuItem: UIView {
     private func showHideTitle(hiddenState: Bool) {
         if let titleView = titleView {
             titleView.hidden = hiddenState
-            UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
+            UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
                 titleView.center = CGPoint(x: self.frame.width/2, y: -self.titleLabel.frame.height)
             }, completion: nil)
         }
     }
     
-    public func activate(#shouldActivate: Bool) {
+    public func activate(shouldActivate shouldActivate: Bool) {
         menuIcon.hidden = shouldActivate
         activeMenuIcon?.hidden = !shouldActivate
         showHideTitle(!shouldActivate)
     }
     
     public func createCustomLabel(label: UILabel) {
-        if let title = titleText {
+        if let _ = titleText {
             titleLabel = label
             setupLabel()
         }
     }
     
-    public func changeTitle(#newTitle: String) {
+    public func changeTitle(newTitle newTitle: String) {
         titleLabel.text = newTitle
     }
     
-    public func changeIcon(#newIcon: UIImage) {
+    public func changeIcon(newIcon newIcon: UIImage) {
         menuIcon.image = newIcon
     }
     
-    public func changeActiveIcon(#newActiveIcon: UIImage) {
+    public func changeActiveIcon(newActiveIcon newActiveIcon: UIImage) {
         activeMenuIcon?.image = newActiveIcon
     }
 }

@@ -54,7 +54,7 @@ public class GNAMenuView: UIView {
         menuItemsArray = menuItems
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -76,9 +76,9 @@ public class GNAMenuView: UIView {
         }
     }
     
-    public func showMenuView(#inView: UIView, atPoint: CGPoint) {
+    public func showMenuView(inView inView: UIView, atPoint: CGPoint) {
         inView.addSubview(self)
-        frame = (UIApplication.sharedApplication().keyWindow?.subviews[0] as! UIView).bounds
+        frame = (UIApplication.sharedApplication().keyWindow?.subviews.first)!.bounds
         touchPoint = atPoint
         touchPointImage.center = touchPoint
         angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
@@ -116,7 +116,7 @@ public class GNAMenuView: UIView {
     }
     
     private func resetItemsPosition() {
-        menuItemsArray.map({
+        menuItemsArray.forEach({
             $0.center = self.touchPointImage.center
         })
     }
@@ -194,25 +194,23 @@ public class GNAMenuView: UIView {
         }
     }
     
-    private func negativeQuorterAngles(#startAngle: CGFloat) {
+    private func negativeQuorterAngles(startAngle startAngle: CGFloat) {
         let angle = startAngle + 90
-        menuItemsArray.map({ item -> GNAMenuItem in
-            let index = CGFloat(find(self.menuItemsArray, item)!)
+        menuItemsArray.forEach({ item in
+            let index = CGFloat(self.menuItemsArray.indexOf(item)!)
             item.angle = (angle - self.angleCoef * index) / 180 * CGFloat(M_PI)
-            return item
         })
     }
     
-    private func positiveQuorterAngle(#startAngle: CGFloat) {
-        menuItemsArray.map({ item -> GNAMenuItem in
-            let index = CGFloat(find(self.menuItemsArray, item)!)
+    private func positiveQuorterAngle(startAngle startAngle: CGFloat) {
+        menuItemsArray.forEach({ item in
+            let index = CGFloat(self.menuItemsArray.indexOf(item)!)
             item.angle = (startAngle + self.angleCoef * index) / 180.0 * CGFloat(M_PI)
-            return item
         })
     }
     
     private func animateItem(menuItem: GNAMenuItem) {
-        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: nil, animations: {
+        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
                 menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
             }, completion: nil)
     }
@@ -240,7 +238,7 @@ public class GNAMenuView: UIView {
     }
     
     private func deactivateItem(menuItem: GNAMenuItem) {
-        if let item = currentActiveItem {
+        if let _ = currentActiveItem {
             currentActiveItem = nil
             distanceToTouchPoint = distanceToTouchPoint - CGFloat(15.0)
             setupPositionAnimated(menuItem)
