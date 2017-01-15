@@ -46,10 +46,20 @@ class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate
     }
     
     private func createMenuItem() {
+        let customItem = GNAMenuItem(icon: UIImage(named: "shopingCart_inactive")!, activeIcon: UIImage(named: "shopingCart"), title: "Shop it")
+        customItem.changeTitle(withTitle: "ttt")
+        customItem.changeActiveIcon(withIcon: UIImage(named: "defaultImage")!)
+        customItem.changeIcon(withIcon: UIImage(named: "wishlist_inacitve")!)
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 60))
+        titleView.backgroundColor = .red
+        let titleLabel = UILabel(frame: .zero)
+        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: 1)
+        customItem.changeTitleView(withView: titleView)
+        customItem.changeTitleLabel(withLabel: titleLabel)
         menuView = GNAMenuView(touchPointSize: CGSize(width: 80, height: 80), touchImage: UIImage(named: "defaultImage"), menuItems: [
-                        GNAMenuItem(icon: UIImage(named: "shopingCart_inactive"), activeIcon: UIImage(named: "shopingCart"), title: "Shop it"),
-                        GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish"),
-                        GNAMenuItem(icon: UIImage(named: "wishlist_inacitve"), activeIcon: UIImage(named: "wishlist"), title: "Wish")
+                        customItem,
+                        GNAMenuItem(icon: UIImage(named: "wishlist_inacitve")!, activeIcon: UIImage(named: "wishlist"), title: "Wish"),
+                        GNAMenuItem(icon: UIImage(named: "wishlist_inacitve")!, activeIcon: UIImage(named: "wishlist"), title: "Wish")
             ])
         menuView.delegate = self
     }

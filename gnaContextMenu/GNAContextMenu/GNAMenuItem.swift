@@ -8,27 +8,30 @@ import UIKit
 
 public class GNAMenuItem: UIView {
     
-    public var titleLabel: UILabel!
-    public var titleView: UIView!
     public var itemId: String?
-    public var angle: CGFloat!
+    public var angle: CGFloat = 0
+    public var defaultLabelMargin: CGFloat = 6
     
+    private var titleView: UIView?
+    private var titleLabel: UILabel?
     private var menuIcon: UIImageView!
     private var titleText: String?
     private var activeMenuIcon: UIImageView?
     
-    public convenience init(icon: UIImage!, activeIcon: UIImage?, title: String?) {
+    public convenience init(icon: UIImage, activeIcon: UIImage?, title: String?) {
         let frame = CGRect(x: 0, y: 0, width: 55, height: 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
     }
     
-    public init(icon: UIImage!, activeIcon: UIImage?, title: String?, frame: CGRect) {
+    public init(icon: UIImage, activeIcon: UIImage?, title: String?, frame: CGRect) {
         super.init(frame: frame)
         menuIcon = createMenuIcon(withImage: icon)
         if let aIcon = activeIcon {
             activeMenuIcon = createMenuIcon(withImage: aIcon)
         }
-        createLabel(withTitle: title)
+        if let t = title {
+            createDefaultLabel(withTitle: t)
+        }
         activate(shouldActivate: false)
     }
 
@@ -36,34 +39,50 @@ public class GNAMenuItem: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func createLabel(withTitle title: String?) {
-        if let itemTitle = title {
-            titleText = itemTitle
-            titleView = UIView()
-            titleLabel = UILabel()
-            if #available(iOS 8.2, *) {
-                titleLabel.font = UIFont.systemFont(ofSize: 11, weight: 1)
-            } else {
-                titleLabel.font = UIFont.systemFont(ofSize: 11)
-            }
-            titleLabel.textColor = UIColor.white
-            titleLabel.textAlignment = .center
-            setupLabel()
-            titleView.backgroundColor = UIColor.black
-            titleView.alpha = 0.7
-            titleView.layer.cornerRadius = 5
-            titleView.addSubview(titleLabel)
-            self.addSubview(titleView)
-        }
+    private func createLabel(withTitle title: String,
+                            fontSize: CGFloat? = 11.0,
+                            color: UIColor? = .white,
+                            bgColor: UIColor? = .black) {
+        titleLabel = createTitleLabel(withTitle: title, fontSize: fontSize, color: color)
+        titleView = createTitleView(withColor: bgColor)
+        updateTitlePositions()
+        titleView!.addSubview(titleLabel!)
+        addSubview(titleView!)
     }
     
-    private func setupLabel() {
-        if let title = titleText {
-            titleLabel.text = title
-            titleLabel.sizeToFit()
-            titleView.frame = CGRect(origin: .zero, size: CGSize(width: titleLabel.frame.width + 6, height: titleLabel.frame.height))
-            titleLabel.center = CGPoint(x: titleView.frame.width/2, y: titleView.frame.height/2)
-        }
+    private func createTitleLabel(withTitle title: String,
+                                  fontSize: CGFloat? = 11.0,
+                                  color: UIColor? = .white) -> UILabel {
+        let itemTitleLabel = UILabel()
+        itemTitleLabel.font = UIFont.systemFont(ofSize: fontSize ?? 11, weight: 1)
+        itemTitleLabel.textColor = color
+        itemTitleLabel.textAlignment = .center
+        itemTitleLabel.text = title
+        return itemTitleLabel
+    }
+    
+    private func createTitleView(withColor color: UIColor?) -> UIView {
+        let itemTitleView = UIView()
+        itemTitleView.backgroundColor = color
+        itemTitleView.alpha = 0.7
+        itemTitleView.layer.cornerRadius = 5
+        return itemTitleView
+    }
+    
+    private func setupLabelPosition() {
+        guard let tLabel = titleLabel else { return }
+        tLabel.sizeToFit()
+        tLabel.center = CGPoint(x: (tLabel.frame.width + defaultLabelMargin)/2, y: tLabel.frame.height/2)
+    }
+    
+    private func setupTitleViewPosition() {
+        guard let tView = titleView, let tLabel = titleLabel else { return }
+        tView.frame = CGRect(origin: .zero, size: CGSize(width: tLabel.frame.width + defaultLabelMargin, height: tLabel.frame.height))
+    }
+    
+    private func updateTitlePositions() {
+        setupLabelPosition()
+        setupTitleViewPosition()
     }
     
     private func createMenuIcon(withImage image: UIImage) -> UIImageView {
@@ -74,37 +93,50 @@ public class GNAMenuItem: UIView {
         return iconView
     }
     
-    private func showHideTitle(hiddenState: Bool) {
-        if let titleView = titleView {
-            titleView.isHidden = hiddenState
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
-                titleView.center = CGPoint(x: self.frame.width/2, y: -self.titleLabel.frame.height)
-            }, completion: nil)
-        }
+    private func showHideTitle(toShow: Bool) {
+        guard let tView = titleView else { return }
+        tView.isHidden = !toShow
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
+            tView.center = CGPoint(x: self.frame.width/2, y: -(self.titleLabel?.frame.height ?? 0))
+        }, completion: nil)
     }
     
     public func activate(shouldActivate: Bool) {
         menuIcon.isHidden = shouldActivate
         activeMenuIcon?.isHidden = !shouldActivate
-        showHideTitle(hiddenState: !shouldActivate)
+        showHideTitle(toShow: shouldActivate)
     }
     
-    public func createCustomLabel(label: UILabel) {
-        if let _ = titleText {
-            titleLabel = label
-            setupLabel()
-        }
+    public func changeTitleLabel(withLabel label: UILabel) {
+        let labelText = label.text ?? titleLabel?.text
+        titleLabel?.removeFromSuperview()
+        titleLabel = label
+        titleLabel?.text = labelText
+        titleView?.addSubview(titleLabel!)
+        updateTitlePositions()
     }
     
-    public func changeTitle(newTitle: String) {
-        titleLabel.text = newTitle
+    public func changeTitleView(withView view: UIView) {
+        titleView?.removeFromSuperview()
+        titleView = view
+        titleView?.addSubview(titleLabel ?? UIView())
+        addSubview(titleView!)
+        showHideTitle(toShow: false)
+        updateTitlePositions()
     }
     
-    public func changeIcon(newIcon: UIImage) {
-        menuIcon.image = newIcon
+    public func changeTitle(withTitle title: String) {
+        titleLabel?.text = title
+        updateTitlePositions()
     }
     
-    public func changeActiveIcon(newActiveIcon: UIImage) {
-        activeMenuIcon?.image = newActiveIcon
+    public func changeIcon(withIcon icon: UIImage) {
+        menuIcon.removeFromSuperview()
+        menuIcon = createMenuIcon(withImage: icon)
+    }
+    
+    public func changeActiveIcon(withIcon icon: UIImage) {
+        activeMenuIcon?.removeFromSuperview()
+        activeMenuIcon = createMenuIcon(withImage: icon)
     }
 }

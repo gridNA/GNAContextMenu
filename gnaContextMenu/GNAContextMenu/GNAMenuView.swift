@@ -78,8 +78,8 @@ open class GNAMenuView: UIView {
     
     // MARK: Private methods
     
-    private func showMenuView(inView: UIView, atPoint: CGPoint) {
-        inView.addSubview(self)
+    private func showMenuView(inView view: UIView, atPoint: CGPoint) {
+        view.addSubview(self)
         frame = (UIApplication.shared.keyWindow?.subviews.first)?.bounds ?? .zero
         touchPoint = atPoint
         touchPointImage.center = atPoint
