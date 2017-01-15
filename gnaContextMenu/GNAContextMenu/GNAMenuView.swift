@@ -7,51 +7,52 @@
 import UIKit
 
 enum Direction {
-    case Left
-    case Right
-    case Middle
-    case Up
-    case Down
+    case left
+    case right
+    case middle
+    case up
+    case down
 }
 
 @objc public protocol GNAMenuItemDelegate {
-    optional func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?)
-    optional func menuItemActivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
-    optional func menuItemDeactivated(menuItem: GNAMenuItem, info: [String: AnyObject]?)
+    @objc optional func menuItemWasPressed(_ menuItem: GNAMenuItem, info: [String: Any]?)
+    @objc optional func menuItemActivated(_ menuItem: GNAMenuItem, info: [String: Any]?)
+    @objc optional func menuItemDeactivated(_ menuItem: GNAMenuItem, info: [String: Any]?)
 }
 
-public class GNAMenuView: UIView {
-    public var distanceToTouchPoint: CGFloat = 20
-    public var delegate: GNAMenuItemDelegate?
-    public var additionalInfo: [String: AnyObject]?
+open class GNAMenuView: UIView {
     
-    private var touchPoint: CGPoint!
+    open weak var delegate: GNAMenuItemDelegate?
+    open var additionalInfo: [String: Any]?
+    
+    private var distanceToTouchPoint: CGFloat = 20
+    private var touchPoint: CGPoint?
     private var menuItemsArray: Array<GNAMenuItem>!
-    private var coordinatesDict: [String: CGFloat]!
-    private var currentDirection: (Direction, Direction)!
+    private var currentDirection: (Direction, Direction)?
     private var currentActiveItem: GNAMenuItem?
     private var touchPointImage: UIImageView!
     private var angleCoef: CGFloat!
-    private var xDistanceToItem: CGFloat!
-    private var yDistanceToItem: CGFloat!
+    private var xDistanceToItem: CGFloat?
+    private var yDistanceToItem: CGFloat?
     
     // MARK: Init section
     
-    private init(frame: CGRect, image: UIImage) {
-        touchPointImage = UIImageView(image: image)
-        touchPointImage.contentMode = UIViewContentMode.ScaleAspectFit
-        super.init(frame: frame)
-        touchPointImage.frame = self.bounds
-        self.addSubview(touchPointImage)
+    private init(touchPointSize: CGSize, touchImage: UIImage?) {
+        super.init(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: touchPointSize))
+        self.touchPointImage = UIImageView(image: touchImage)
+        self.touchPointImage.contentMode = UIViewContentMode.scaleAspectFit
+        self.touchPointImage.frame = self.bounds
+        addSubview(self.touchPointImage)
     }
     
     public convenience init(menuItems: Array<GNAMenuItem>) {
-        self.init(size: CGSize(width: 80, height: 80), image: UIImage(named: "defaultImage")!, menuItems: menuItems)
+        self.init(touchPointSize: CGSize(width: 70, height: 70), touchImage: nil, menuItems: menuItems)
     }
     
-    public convenience init(size: CGSize, image: UIImage, menuItems: Array<GNAMenuItem>) {
-        self.init(frame: CGRect(origin: CGPointMake(0, 0), size: size), image: image)
+    public convenience init(touchPointSize: CGSize, touchImage: UIImage?, menuItems: Array<GNAMenuItem>) {
+        self.init(touchPointSize: touchPointSize, touchImage: touchImage)
         menuItemsArray = menuItems
+        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -60,57 +61,52 @@ public class GNAMenuView: UIView {
     
     // MARK: Public methods
     
-    public func handleGesture(gesture: UILongPressGestureRecognizer, inView: UIView) {
-        let point = gesture.locationInView(inView)
-        if(gesture.state == .Began)
-        {
+    open func changeDistanceToTouchPoint(withDistance distance: CGFloat) {
+        distanceToTouchPoint = distance
+    }
+    
+    public func handleGesture(_ gesture: UILongPressGestureRecognizer, inView: UIView) {
+        let point = gesture.location(in: inView)
+        if(gesture.state == .began) {
             showMenuView(inView: inView, atPoint: point)
-        }
-        else if(gesture.state == .Changed)
-        {
+        } else if(gesture.state == .changed) {
             slideToPoint(point)
-        }
-        else if(gesture.state == .Ended)
-        {
+        } else if(gesture.state == .ended) {
             dismissMenuView(point)
         }
     }
     
-    public func showMenuView(inView inView: UIView, atPoint: CGPoint) {
+    // MARK: Private methods
+    
+    private func showMenuView(inView: UIView, atPoint: CGPoint) {
         inView.addSubview(self)
-        frame = (UIApplication.sharedApplication().keyWindow?.subviews.first)!.bounds
+        frame = (UIApplication.shared.keyWindow?.subviews.first)?.bounds ?? .zero
         touchPoint = atPoint
-        touchPointImage.center = touchPoint
-        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
+        touchPointImage.center = atPoint
         currentDirection = calculateDirections(menuItemsArray[0].frame.width)
         setupMenuView()
     }
     
-    public func slideToPoint(point: CGPoint) {
-        if touchPoint == nil {
-            return
-        }
-        detectPoint(point, action: { (menuItem: GNAMenuItem) in
-            self.activateItem(menuItem)
+    private func slideToPoint(_ point: CGPoint) {
+        detectPoint(point, action: { [weak self] (menuItem: GNAMenuItem) in
+            self?.activateItem(menuItem)
         })
     }
     
-    public func dismissMenuView(point: CGPoint) {
+    private func dismissMenuView(_ point: CGPoint) {
         detectPoint(point, action: { (menuItem: GNAMenuItem) in
             delegate?.menuItemWasPressed?(menuItem, info: additionalInfo)
         })
         deactivateCurrentItem()
-        self.removeFromSuperview()
+        removeFromSuperview()
     }
-    
-    // MARK: Private methods
     
     private func setupMenuView() {
         calculateDistanceToItem()
         resetItemsPosition()
         anglesForDirection()
         for item in menuItemsArray {
-            self.addSubview(item)
+            addSubview(item)
             animateItem(item)
         }
     }
@@ -126,67 +122,70 @@ public class GNAMenuView: UIView {
         yDistanceToItem = touchPointImage.frame.height/2 + distanceToTouchPoint + CGFloat(menuItemsArray[0].frame.height/2)
     }
     
-    private func detectPoint(point: CGPoint, action: (menuItem: GNAMenuItem)->Void) {
-        let p = self.convertPoint(point, fromView: superview)
+    private func detectPoint(_ point: CGPoint, action: (_ menuItem: GNAMenuItem)->Void) {
+        let p = convert(point, from: superview)
         var isActiveButton = false
-        for subview in self.subviews {
-            if CGRectContainsPoint(subview.frame, p) && subview is GNAMenuItem {
+        for subview in subviews {
+            if subview.frame.contains(p) && subview is GNAMenuItem {
                 isActiveButton = true
-                action(menuItem: subview as! GNAMenuItem)
+                action(subview as! GNAMenuItem)
             }
         }
-        if let item = currentActiveItem where !isActiveButton {
-            if CGRectContainsPoint(touchPointImage.frame, point) {
+        if let item = currentActiveItem, !isActiveButton {
+            if touchPointImage.frame.contains(point) {
                 deactivateItem(item)
             }
         }
     }
     
-    private func calculateDirections(menuItemWidth: CGFloat) -> (Direction, Direction) {
-        let superViewFrame = self.superview?.frame
+    private func calculateDirections(_ menuItemWidth: CGFloat) -> (Direction, Direction) {
+        guard let superViewFrame = superview?.frame else { return (.middle, .middle) }
         let touchWidth = distanceToTouchPoint +  menuItemWidth + touchPointImage.frame.width
         let touchHeight = distanceToTouchPoint + menuItemWidth + touchPointImage.frame.height
-        let horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame!)
-        let verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame!)
+        let horisontalDirection = determineHorisontalDirection(touchWidth, superViewFrame: superViewFrame)
+        let verticalDirection = determineVerticalDirection(touchHeight, superViewFrame: superViewFrame)
         return(verticalDirection, horisontalDirection)
     }
     
-    private func determineVerticalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
-        let isBotomBorderOfScreen = touchPoint.y + size > UIScreen.mainScreen().bounds.height
-        let isTopBorderOfScreen = touchPoint.y - size < 0
+    private func determineVerticalDirection(_ size: CGFloat, superViewFrame: CGRect) -> Direction {
+        guard let tPoint = touchPoint else { return .middle }
+        let isBotomBorderOfScreen = tPoint.y + size > UIScreen.main.bounds.height
+        let isTopBorderOfScreen = tPoint.y - size < 0
         if  isTopBorderOfScreen {
-            return .Down
+            return .down
         } else if isBotomBorderOfScreen {
-            return .Up
+            return .up
         } else {
-            return .Middle
+            return .middle
         }
     }
     
-    private func determineHorisontalDirection(size: CGFloat, superViewFrame: CGRect) -> Direction {
-        let isRightBorderOfScreen = touchPoint.x + size > UIScreen.mainScreen().bounds.width
-        let isLeftBorderOfScreen = touchPoint.x - size < 0
+    private func determineHorisontalDirection(_ size: CGFloat, superViewFrame: CGRect) -> Direction {
+        guard let tPoint = touchPoint else { return .middle }
+        let isRightBorderOfScreen = tPoint.x + size > UIScreen.main.bounds.width
+        let isLeftBorderOfScreen = tPoint.x - size < 0
         if isLeftBorderOfScreen {
-            return .Right
+            return .right
         } else if  isRightBorderOfScreen {
-            return .Left
+            return .left
         } else {
-            return .Middle
+            return .middle
         }
     }
     
     private func anglesForDirection() {
-        switch (self.currentDirection as (Direction, Direction)) {
-        case (.Down, .Left), (.Down, .Middle):
+        guard let direction = currentDirection else { return }
+        switch (direction) {
+        case (.down, .left), (.down, .middle):
             negativeQuorterAngles(startAngle: 90)
             break
-        case (.Down, .Right):
+        case (.down, .right):
             positiveQuorterAngle(startAngle: 0)
             break
-        case (.Middle, .Left), (.Middle, .Middle), (.Up, .Left), (.Up, .Middle):
+        case (.middle, .left), (.middle, .middle), (.up, .left), (.up, .middle):
             negativeQuorterAngles(startAngle: 180)
             break
-        case (.Middle, .Right), (.Up, .Right):
+        case (.middle, .right), (.up, .right):
             positiveQuorterAngle(startAngle: 270)
             break
         default:
@@ -194,39 +193,40 @@ public class GNAMenuView: UIView {
         }
     }
     
-    private func negativeQuorterAngles(startAngle startAngle: CGFloat) {
+    private func negativeQuorterAngles(startAngle: CGFloat) {
         let angle = startAngle + 90
         menuItemsArray.forEach({ item in
-            let index = CGFloat(self.menuItemsArray.indexOf(item)!)
-            item.angle = (angle - self.angleCoef * index) / 180 * CGFloat(M_PI)
+            let index = CGFloat(menuItemsArray.index(of: item)!)
+            item.angle = (angle - angleCoef * index) / 180 * CGFloat(M_PI)
         })
     }
     
-    private func positiveQuorterAngle(startAngle startAngle: CGFloat) {
+    private func positiveQuorterAngle(startAngle: CGFloat) {
         menuItemsArray.forEach({ item in
-            let index = CGFloat(self.menuItemsArray.indexOf(item)!)
-            item.angle = (startAngle + self.angleCoef * index) / 180.0 * CGFloat(M_PI)
+            let index = CGFloat(menuItemsArray.index(of: item)!)
+            item.angle = (startAngle + angleCoef * index) / 180.0 * CGFloat(M_PI)
         })
     }
     
-    private func animateItem(menuItem: GNAMenuItem) {
-        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
-                menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
+    private func animateItem(_ menuItem: GNAMenuItem) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [], animations: {
+                menuItem.center = self.calculatePointCoordiantes(menuItem.angle)
             }, completion: nil)
     }
     
-    private func calculatePointCoordiantes(angle: CGFloat) -> (CGFloat, CGFloat) {
+    private func calculatePointCoordiantes(_ angle: CGFloat) -> CGPoint {
+        guard let tPoint = touchPoint else { return .zero }
         if xDistanceToItem == nil || yDistanceToItem == nil {
             calculateDistanceToItem()
         }
-        let x = touchPoint.x + cos(angle) * xDistanceToItem
-        let y = touchPoint.y + sin(angle) * yDistanceToItem
-        return (x, y)
+        let x = tPoint.x + cos(angle) * (xDistanceToItem ?? 1)
+        let y = tPoint.y + sin(angle) * (yDistanceToItem ?? 1)
+        return CGPoint(x: x, y: y)
     }
 
     // MARK: Buttons actiovation/deactivation
     
-    private func activateItem(menuItem: GNAMenuItem) {
+    private func activateItem(_ menuItem: GNAMenuItem) {
         if currentActiveItem != menuItem {
             deactivateCurrentItem()
             currentActiveItem = menuItem
@@ -237,7 +237,7 @@ public class GNAMenuView: UIView {
         }
     }
     
-    private func deactivateItem(menuItem: GNAMenuItem) {
+    private func deactivateItem(_ menuItem: GNAMenuItem) {
         if let _ = currentActiveItem {
             currentActiveItem = nil
             distanceToTouchPoint = distanceToTouchPoint - CGFloat(15.0)
@@ -253,10 +253,10 @@ public class GNAMenuView: UIView {
         }
     }
     
-    private func setupPositionAnimated(menuItem: GNAMenuItem) {
+    private func setupPositionAnimated(_ menuItem: GNAMenuItem) {
         calculateDistanceToItem()
-        UIView.animateWithDuration(0.2, animations: {
-             menuItem.center = CGPointMake(self.calculatePointCoordiantes(menuItem.angle))
+        UIView.animate(withDuration: 0.2, animations: {
+             menuItem.center = self.calculatePointCoordiantes(menuItem.angle)
         })
     }
 }
