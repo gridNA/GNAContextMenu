@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => "MIT", :file => "License" }
   s.author           = { "KaterynaGridina" => "gridina.kate170890@gmail.com" }
   s.source           = { :git => "https://github.com/gridNA/GNAContextMenu.git", :tag => s.version}
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
   s.source_files = 'gnaContextMenu/GNAContextMenu/*.swift'
 end

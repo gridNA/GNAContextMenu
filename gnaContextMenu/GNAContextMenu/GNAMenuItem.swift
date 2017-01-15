@@ -30,7 +30,7 @@ public class GNAMenuItem: UIView {
             activeMenuIcon = createMenuIcon(withImage: aIcon)
         }
         if let t = title {
-            createDefaultLabel(withTitle: t)
+            createLabel(withTitle: t)
         }
         activate(shouldActivate: false)
     }
