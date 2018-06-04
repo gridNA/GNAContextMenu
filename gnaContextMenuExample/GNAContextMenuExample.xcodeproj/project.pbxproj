@@ -13,6 +13,7 @@
 		E960D8891B1DA18B006A17A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960D8851B1DA18B006A17A0 /* AppDelegate.swift */; };
 		E960D88C1B1DA18B006A17A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960D8881B1DA18B006A17A0 /* ViewController.swift */; };
 		E960D8D41B1DA898006A17A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E960D8D31B1DA898006A17A0 /* Main.storyboard */; };
+		E998637C20C57BB600A3A80D /* ObjcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998637B20C57BB600A3A80D /* ObjcViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,9 @@
 		E960D8881B1DA18B006A17A0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E960D8991B1DA2B1006A17A0 /* GNAContextMenu.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNAContextMenu.xcodeproj; path = ../GNAContextMenu/GNAContextMenu.xcodeproj; sourceTree = "<group>"; };
 		E960D8D31B1DA898006A17A0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E998637920C57BB600A3A80D /* GNAContextMenuExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GNAContextMenuExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		E998637A20C57BB600A3A80D /* ObjcViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ObjcViewController.h; path = ../../gnaContextMenuExample/GNAContextMenuExample/ObjcViewController.h; sourceTree = "<group>"; };
+		E998637B20C57BB600A3A80D /* ObjcViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ObjcViewController.m; path = ../../gnaContextMenuExample/GNAContextMenuExample/ObjcViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +102,11 @@
 				E930D7831B1EFA4A002A14E1 /* Images.xcassets */,
 				E960D8851B1DA18B006A17A0 /* AppDelegate.swift */,
 				E960D8881B1DA18B006A17A0 /* ViewController.swift */,
+				E998637A20C57BB600A3A80D /* ObjcViewController.h */,
+				E998637B20C57BB600A3A80D /* ObjcViewController.m */,
 				E960D8D31B1DA898006A17A0 /* Main.storyboard */,
 				E960D8621B1DA0C4006A17A0 /* Supporting Files */,
+				E998637920C57BB600A3A80D /* GNAContextMenuExample-Bridging-Header.h */,
 			);
 			path = GNAContextMenuExample;
 			sourceTree = "<group>";
@@ -150,11 +157,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Kateryna Gridina";
 				TargetAttributes = {
 					E960D85E1B1DA0C4006A17A0 = {
 						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -209,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E998637C20C57BB600A3A80D /* ObjcViewController.m in Sources */,
 				E960D88C1B1DA18B006A17A0 /* ViewController.swift in Sources */,
 				E960D8891B1DA18B006A17A0 /* AppDelegate.swift in Sources */,
 			);
@@ -238,14 +247,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -269,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -287,14 +304,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -311,7 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -334,8 +359,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "GNA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GNAContextMenuExample/GNAContextMenuExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -352,7 +379,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "GNA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GNAContextMenuExample/GNAContextMenuExample-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -18,12 +18,12 @@ public class GNAMenuItem: UIView {
     private var titleText: String?
     private var activeMenuIcon: UIImageView?
     
-    public convenience init(icon: UIImage, activeIcon: UIImage?, title: String?) {
+    @objc public convenience init(icon: UIImage, activeIcon: UIImage?, title: String?) {
         let frame = CGRect(x: 0, y: 0, width: 55, height: 55)
         self.init(icon: icon, activeIcon: activeIcon, title: title, frame: frame)
     }
     
-    public init(icon: UIImage, activeIcon: UIImage?, title: String?, frame: CGRect) {
+    @objc public init(icon: UIImage, activeIcon: UIImage?, title: String?, frame: CGRect) {
         super.init(frame: frame)
         menuIcon = createMenuIcon(withImage: icon)
         if let aIcon = activeIcon {
@@ -35,7 +35,7 @@ public class GNAMenuItem: UIView {
         activate(shouldActivate: false)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    @objc required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -54,7 +54,7 @@ public class GNAMenuItem: UIView {
                                   fontSize: CGFloat? = 11.0,
                                   color: UIColor? = .white) -> UILabel {
         let itemTitleLabel = UILabel()
-        itemTitleLabel.font = UIFont.systemFont(ofSize: fontSize ?? 11, weight: 1)
+        itemTitleLabel.font = UIFont.systemFont(ofSize: fontSize ?? 11, weight: UIFont.Weight(rawValue: 1))
         itemTitleLabel.textColor = color
         itemTitleLabel.textAlignment = .center
         itemTitleLabel.text = title
@@ -100,14 +100,16 @@ public class GNAMenuItem: UIView {
             tView.center = CGPoint(x: self.frame.width/2, y: -(self.titleLabel?.frame.height ?? 0))
         }, completion: nil)
     }
-    
-    public func activate(shouldActivate: Bool) {
+
+    // MARK: Public methods
+
+    @objc public func activate(shouldActivate: Bool) {
         menuIcon.isHidden = shouldActivate
         activeMenuIcon?.isHidden = !shouldActivate
         showHideTitle(toShow: shouldActivate)
     }
     
-    public func changeTitleLabel(withLabel label: UILabel) {
+    @objc public func changeTitleLabel(withLabel label: UILabel) {
         let labelText = label.text ?? titleLabel?.text
         titleLabel?.removeFromSuperview()
         titleLabel = label
@@ -116,7 +118,7 @@ public class GNAMenuItem: UIView {
         updateTitlePositions()
     }
     
-    public func changeTitleView(withView view: UIView) {
+    @objc public func changeTitleView(withView view: UIView) {
         titleView?.removeFromSuperview()
         titleView = view
         titleView?.addSubview(titleLabel ?? UIView())
@@ -125,17 +127,17 @@ public class GNAMenuItem: UIView {
         updateTitlePositions()
     }
     
-    public func changeTitle(withTitle title: String) {
+    @objc public func changeTitle(withTitle title: String) {
         titleLabel?.text = title
         updateTitlePositions()
     }
     
-    public func changeIcon(withIcon icon: UIImage) {
+    @objc public func changeIcon(withIcon icon: UIImage) {
         menuIcon.removeFromSuperview()
         menuIcon = createMenuIcon(withImage: icon)
     }
     
-    public func changeActiveIcon(withIcon icon: UIImage) {
+    @objc public func changeActiveIcon(withIcon icon: UIImage) {
         activeMenuIcon?.removeFromSuperview()
         activeMenuIcon = createMenuIcon(withImage: icon)
     }

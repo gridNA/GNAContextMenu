@@ -1,4 +1,6 @@
 //
-//  Use this file to import your target's public headers that you would like to expose to Swift.
+//  Created by Kateryna Gridina.
+//  Copyright (c) gridNA. All rights reserved.
+//  Latest version can be found at https://github.com/gridNA/GNAContextMenu
 //
 

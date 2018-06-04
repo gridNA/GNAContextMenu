@@ -14,6 +14,7 @@ class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Swift"
         setupTable()
         createMenuItem()
     }
@@ -53,7 +54,7 @@ class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 60))
         titleView.backgroundColor = .red
         let titleLabel = UILabel(frame: .zero)
-        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: 1)
+        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(rawValue: 1))
         customItem.changeTitleView(withView: titleView)
         customItem.changeTitleLabel(withLabel: titleLabel)
         menuView = GNAMenuView(touchPointSize: CGSize(width: 80, height: 80), touchImage: UIImage(named: "defaultImage"), menuItems: [
@@ -66,7 +67,7 @@ class ViewController: UIViewController, GNAMenuItemDelegate, UITableViewDelegate
     
     private func menuItemWasPressed(menuItem: GNAMenuItem, info: [String: AnyObject]?) {
         let indexPath = info!["cellPath"] as? NSIndexPath
-        print("\(indexPath)")
+        print("\(String(describing: indexPath))")
     }
 }
 

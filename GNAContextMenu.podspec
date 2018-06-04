@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "GNAContextMenu"
-  s.version          = "1.1.0"
+  s.version          = "1.2.0"
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
   s.summary          = "Long press context menu written in swift"
   s.description      = <<-DESC
                        Long press context menu (like in Pintrest for iOS app)

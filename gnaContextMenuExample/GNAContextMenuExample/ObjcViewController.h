@@ -1,13 +1,12 @@
 //
-//  ObjcViewController.h
-//  GNAContextMenuExample
-//
-//  Created by Kateryna Gridina on 04.06.18.
-//  Copyright © 2018 Kateryna Gridina. All rights reserved.
+//  Created by Kateryna Gridina.
+//  Copyright (c) gridNA. All rights reserved.
+//  Latest version can be found at https://github.com/gridNA/GNAContextMenu
 //
 
-#import <Foundation/Foundation.h>
 
-@interface ObjcViewController : NSObject
+#import <UIKit/UIKit.h>
+
+@interface ObjcViewController : UIViewController
 
 @end

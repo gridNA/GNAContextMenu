@@ -22,8 +22,8 @@ enum Direction {
 
 open class GNAMenuView: UIView {
     
-    open weak var delegate: GNAMenuItemDelegate?
-    open var additionalInfo: [String: Any]?
+    @objc open weak var delegate: GNAMenuItemDelegate?
+    @objc open var additionalInfo: [String: Any]?
     
     private var distanceToTouchPoint: CGFloat = 20
     private var touchPoint: CGPoint?
@@ -45,27 +45,27 @@ open class GNAMenuView: UIView {
         addSubview(self.touchPointImage)
     }
     
-    public convenience init(menuItems: Array<GNAMenuItem>) {
+    @objc public convenience init(menuItems: Array<GNAMenuItem>) {
         self.init(touchPointSize: CGSize(width: 70, height: 70), touchImage: nil, menuItems: menuItems)
     }
     
-    public convenience init(touchPointSize: CGSize, touchImage: UIImage?, menuItems: Array<GNAMenuItem>) {
+    @objc public convenience init(touchPointSize: CGSize, touchImage: UIImage?, menuItems: Array<GNAMenuItem>) {
         self.init(touchPointSize: touchPointSize, touchImage: touchImage)
         menuItemsArray = menuItems
         angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    @objc public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Public methods
     
-    open func changeDistanceToTouchPoint(withDistance distance: CGFloat) {
+    @objc open func changeDistanceToTouchPoint(withDistance distance: CGFloat) {
         distanceToTouchPoint = distance
     }
     
-    public func handleGesture(_ gesture: UILongPressGestureRecognizer, inView: UIView) {
+    @objc public func handleGesture(_ gesture: UILongPressGestureRecognizer, inView: UIView) {
         let point = gesture.location(in: inView)
         if(gesture.state == .began) {
             showMenuView(inView: inView, atPoint: point)
@@ -197,14 +197,15 @@ open class GNAMenuView: UIView {
         let angle = startAngle + 90
         menuItemsArray.forEach({ item in
             let index = CGFloat(menuItemsArray.index(of: item)!)
-            item.angle = (angle - angleCoef * index) / 180 * CGFloat(M_PI)
+            item.angle = (angle - angleCoef * index) / 180 * CGFloat.pi
         })
     }
     
     private func positiveQuorterAngle(startAngle: CGFloat) {
         menuItemsArray.forEach({ item in
             let index = CGFloat(menuItemsArray.index(of: item)!)
-            item.angle = (startAngle + angleCoef * index) / 180.0 * CGFloat(M_PI)
+            item.angle = (startAngle + angleCoef * index) / 180.0 * CGFloat.pi
+
         })
     }
     
