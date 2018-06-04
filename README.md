@@ -6,8 +6,8 @@ Long press context menu (like in Pintrest for iOS app)
 
 ## Requirements
 
-- iOS 9.0+
-- Xcode 8.0+
+- iOS 11.0+
+- Xcode 9.3+
 
 ## Installation
  
