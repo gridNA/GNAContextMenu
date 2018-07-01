@@ -52,7 +52,7 @@ open class GNAMenuView: UIView {
     @objc public convenience init(touchPointSize: CGSize, touchImage: UIImage?, menuItems: Array<GNAMenuItem>) {
         self.init(touchPointSize: touchPointSize, touchImage: touchImage)
         menuItemsArray = menuItems
-        angleCoef = 90.0 / CGFloat(menuItemsArray.count - 1)
+        angleCoef = 90.0 / max(CGFloat(menuItemsArray.count - 1), 1)
     }
     
     @objc public required init?(coder aDecoder: NSCoder) {
