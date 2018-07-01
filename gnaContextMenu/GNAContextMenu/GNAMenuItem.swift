@@ -140,5 +140,6 @@ public class GNAMenuItem: UIView {
     @objc public func changeActiveIcon(withIcon icon: UIImage) {
         activeMenuIcon?.removeFromSuperview()
         activeMenuIcon = createMenuIcon(withImage: icon)
+        activeMenuIcon?.isHidden = true
     }
 }
